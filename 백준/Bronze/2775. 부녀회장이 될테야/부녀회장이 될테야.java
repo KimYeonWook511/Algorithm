@@ -15,28 +15,19 @@ public class Main {
 			int k = Integer.parseInt(br.readLine());
 			int n = Integer.parseInt(br.readLine());
 			
-			int cnt = 0;
-			int arr[][] = new int[k + 1][n];
+			int arr[] = new int[n];
 			
-			for (int idxK = 0; idxK < arr.length; idxK++) {
-				arr[idxK][0] = 1;
+			for (int i = 0; i < n; i++) {
+				arr[i] = i + 1;
 			}
 			
-			for (int idxN = 0; idxN < n; idxN++) {
-				arr[0][idxN] = 1;
-			}
-			
-			for (int idxK = 1; idxK < arr.length; idxK++) {
-				for (int idxN = 1; idxN < n; idxN++) {
-					arr[idxK][idxN] = arr[idxK - 1][idxN] + arr[idxK][idxN - 1];
+			for (int lv = 1; lv <= k; lv++) {
+				for (int i = 1; i < n; i++) {
+					arr[i] += arr[i - 1];
 				}
 			}
 			
-			for (int idxN = 0; idxN < n; idxN++) {
-				cnt += arr[k][idxN];
-			}
-			
-			bw.write(cnt + "\n");
+			bw.write(arr[n - 1] + "\n");
 		}
 		
 		bw.flush();
