@@ -10,7 +10,6 @@ public class Main {
 	static BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 	static StringTokenizer st;
 	static int n;
-	static int arr[];
 	
 	public static void main(String[] args) throws IOException {
 		n = Integer.parseInt(br.readLine());
