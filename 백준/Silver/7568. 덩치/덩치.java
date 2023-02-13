@@ -10,7 +10,7 @@ public class Main {
 	static BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 	static StringTokenizer st;
 	static int n;
-	static boolean point[][] = new boolean[201][201];
+	static int point[][] = new int[201][201];
 	static int input[][];
 	
 	public static void main(String[] args) throws IOException {
@@ -23,7 +23,7 @@ public class Main {
 			int kg = Integer.parseInt(st.nextToken());
 			int cm = Integer.parseInt(st.nextToken());
 			
-			point[kg][cm] = true;
+			point[kg][cm]++;;
 			input[run][0] = kg;
 			input[run][1] = cm;
 		}
@@ -33,7 +33,7 @@ public class Main {
 			
 			for (int kg = input[i][0] + 1; kg <= 200; kg++) {
 				for (int cm = input[i][1] + 1; cm <= 200; cm++) {
-					if (point[kg][cm]) rank++;
+					if (point[kg][cm] > 0) rank += point[kg][cm];
 				}
 			}
 			
