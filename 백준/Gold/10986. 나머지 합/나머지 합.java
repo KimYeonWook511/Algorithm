@@ -22,7 +22,7 @@ public class Main {
       st = new StringTokenizer(br.readLine());
       
       for (int i = 1; i <= n; i++) {
-         arr[i] = (Integer.parseInt(st.nextToken()) % m + arr[i - 1]) % m;
+         arr[i] = (Integer.parseInt(st.nextToken()) + arr[i - 1]) % m;
          cnt[arr[i]]++; // 해당 되는 나머지 카운트 증가
       }
       
