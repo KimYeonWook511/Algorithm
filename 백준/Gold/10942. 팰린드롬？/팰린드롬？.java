@@ -40,7 +40,9 @@ public class Main {
 			
 			bw.write(dp[endIdx - startIdx + 1][startIdx] ? "1\n" : "0\n");
 		}
-
+    
+        bw.flush();
+        
 		br.close();
 		bw.close();
 	}
