@@ -8,7 +8,7 @@ public class Main {
 	public static void main(String[] args) throws IOException {
 		
 		int n = Integer.parseInt(br.readLine());
-		long dp[] = new long[36];
+		long dp[] = new long[n + 1];
 		dp[0] = 1;
 		
 		for (int run = 1; run <= n; run++) {
