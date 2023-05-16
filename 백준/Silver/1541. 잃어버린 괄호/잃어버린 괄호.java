@@ -8,7 +8,7 @@ public class Main {
 	public static void main(String[] args) throws IOException {
 		
 		String str[] = br.readLine().split("-");
-		int operand[] = new int[25];
+		int operand[] = new int[str.length];
 		int result = 0;
 		
 		for (int i = 0; i < str.length; i++) {
@@ -31,7 +31,7 @@ public class Main {
 		
 		result = operand[0];
 		
-		for (int i = 1; i < 25; i++) {
+		for (int i = 1; i < operand.length; i++) {
 			result -= operand[i];
 		}
 		
