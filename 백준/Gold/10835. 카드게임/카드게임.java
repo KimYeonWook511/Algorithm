@@ -44,9 +44,8 @@ public class Main {
 			return dp[left][right];
 		}
 		
-		dp[left][right]=Math.max(v(left+1,right), v(left+1,right+1));
-		
 		if (a[left]>b[right]) dp[left][right]=v(left,right+1) + b[right];
+		else dp[left][right]=Math.max(v(left+1,right), v(left+1,right+1));
 		
 		return dp[left][right];
 	}
