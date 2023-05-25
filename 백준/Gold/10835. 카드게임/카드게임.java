@@ -1,6 +1,7 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Arrays;
 import java.util.StringTokenizer;
 
 public class Main {
@@ -21,9 +22,7 @@ public class Main {
 			a[i] = Integer.parseInt(st1.nextToken());
 			b[i] = Integer.parseInt(st2.nextToken());
 			
-			for (int c = 0; c < n; c++) {
-				dp[i][c] = -1; // 아직 계산되지 않았다는 뜻
-			}
+			Arrays.fill(dp[i], -1); // 아직 계산 안됨
 		}
 		
 		System.out.println(cal(0, 0));
