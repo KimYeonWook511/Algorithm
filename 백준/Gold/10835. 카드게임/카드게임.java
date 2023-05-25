@@ -6,6 +6,7 @@ import java.util.StringTokenizer;
 
 public class Main {
 	static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+	static StringTokenizer st1, st2;
 	static int n, a[], b[], dp[][];
 	
 	public static void main(String[] args) throws IOException {
@@ -15,8 +16,8 @@ public class Main {
 		b = new int[n];
 		dp = new int[n][n];
 		
-		StringTokenizer st1 = new StringTokenizer(br.readLine());
-		StringTokenizer st2 = new StringTokenizer(br.readLine());
+		st1 = new StringTokenizer(br.readLine());
+		st2 = new StringTokenizer(br.readLine());
 		
 		for (int i = 0 ; i < n; i++) {
 			a[i] = Integer.parseInt(st1.nextToken());
