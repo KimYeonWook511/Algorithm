@@ -9,7 +9,7 @@ public class Main {
 		
 		int n = Integer.parseInt(br.readLine());
 		long buffer = 1; // 초반엔 A, 복사 이후엔 버퍼
-		long dp[] = new long[n + 4];
+		long dp[] = new long[101];
 		dp[1] = 1;
 		dp[2] = 2;
 		dp[3] = 3;
