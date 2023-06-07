@@ -8,12 +8,11 @@ public class Main {
 	static final int MOD = 1_000_000_007;
 	
 	public static void main(String[] args) throws IOException {
-
 		
 		StringTokenizer st = new StringTokenizer(br.readLine());
 		int n = Integer.parseInt(st.nextToken());
 		int m = Integer.parseInt(st.nextToken());
-		int dp[][] = new int[Math.max(n, m) + 2][Math.max(n, m) + 2];
+		int dp[][] = new int[n + 1][m + 1];
 		
 		dp[0][0] = 1;
 		
