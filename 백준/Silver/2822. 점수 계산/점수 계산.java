@@ -25,7 +25,7 @@ public class Main {
 		Arrays.sort(arrSort);
 		
 		for (int i = 0; i < 8; i++) {
-			if (arr[i] != arrSort[0] && arr[i] != arrSort[1] && arr[i] != arrSort[2]) {
+			if (arr[i] > arrSort[2]) {
 				sum += arr[i];
 				sb.append(i + 1 + " ");
 			}
