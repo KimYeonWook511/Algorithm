@@ -10,13 +10,9 @@ public class Main {
         Integer.parseInt(st.nextToken()); // n
         int kim = Integer.parseInt(st.nextToken());
         int lim = Integer.parseInt(st.nextToken());
-        int round = 1;
+        int round = 0;
 
-        while (true) {
-            if (kim - lim == 1 && kim % 2 == 0) break;
-
-            if (lim - kim == 1 && lim % 2 == 0) break;
-
+        while (kim != lim) {
             kim++;
             kim /= 2;
             lim++;
