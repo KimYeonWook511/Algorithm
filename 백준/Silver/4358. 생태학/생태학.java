@@ -12,7 +12,7 @@ public class Main {
         while (true) {
             String str = br.readLine();
 
-            if (str == null || str.length() == 0) break;
+            if (str == null) break;
             
             map.put(str, map.getOrDefault(str, 0) + 1);
             total++;
