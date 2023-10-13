@@ -10,16 +10,13 @@ public class Main {
         double dp[][] = new double[b + 1][n + 1];
         int MAX = 40_000_000;
 
-        double nume = 0;
-        double avg = 0;
-
         for (int i = 1; i <= n; i++) {
             int num = Integer.parseInt(br.readLine());
             sum[i] = sum[i - 1] + num;
             pow[i] = pow[i - 1] + num * num;
 
-            nume = sum[i];
-            avg = nume / i;
+            double nume = sum[i];
+            double avg = nume / i;
 
             dp[1][i] = pow[i] - 2 * nume * avg + i * avg * avg;
 
@@ -31,8 +28,8 @@ public class Main {
         for (int endIdx = 1; endIdx <= n; endIdx++) {
             for (int startIdx = 0; startIdx < endIdx; startIdx++) {
                 for (int i = 2; i <= b; i++) {
-                    nume = sum[endIdx] - sum[startIdx];
-                    avg = nume / (endIdx - startIdx);
+                    double nume = sum[endIdx] - sum[startIdx];
+                    double avg = nume / (endIdx - startIdx);
 
                     dp[i][endIdx] = Math.min(dp[i][endIdx], dp[i - 1][startIdx] + (pow[endIdx] - pow[startIdx]) - 2 * nume * avg + (endIdx - startIdx) * avg * avg);
                 }
