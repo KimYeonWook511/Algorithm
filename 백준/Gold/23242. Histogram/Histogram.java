@@ -1,21 +1,20 @@
 import java.io.*;
-import java.util.*;
 
 public class Main {
-    static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-    static int b, n, num;
-    static double sum[], pow[], dp[][], nume, avg;
-    static final double MAX = 40_000_000;
-
     public static void main(String[] args) throws IOException {
-        b = Integer.parseInt(br.readLine());
-        n = Integer.parseInt(br.readLine());
-        sum = new double[n + 1];
-        pow = new double[n + 1];
-        dp = new double[b + 1][n + 1];
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int b = Integer.parseInt(br.readLine());
+        int n = Integer.parseInt(br.readLine());
+        double sum[] = new double[n + 1];
+        double pow[] = new double[n + 1];
+        double dp[][] = new double[b + 1][n + 1];
+        int MAX = 40_000_000;
+
+        double nume = 0;
+        double avg = 0;
 
         for (int i = 1; i <= n; i++) {
-            num = Integer.parseInt(br.readLine());
+            int num = Integer.parseInt(br.readLine());
             sum[i] = sum[i - 1] + num;
             pow[i] = pow[i - 1] + num * num;
 
