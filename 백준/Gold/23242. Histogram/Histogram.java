@@ -23,11 +23,10 @@ public class Main {
             avg = nume / i;
 
             dp[1][i] = pow[i] - 2 * nume * avg + i * avg * avg;
-        }
 
-        for (int i = 2; i <= b; i++) {
-            Arrays.fill(dp[i], MAX);
-            dp[i][0] = 0;
+            for (int k = 2; k <= b; k++) {
+                dp[k][i] = MAX;
+            }
         }
 
         for (int endIdx = 1; endIdx <= n; endIdx++) {
