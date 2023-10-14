@@ -12,23 +12,26 @@ public class Main {
         int x = Integer.parseInt(st.nextToken());
 
         st = new StringTokenizer(br.readLine());
-        int sum[] = new int[n + 1];
-
-        for (int i = 1; i <= n; i++) {
-            sum[i] = sum[i - 1] + Integer.parseInt(st.nextToken());
-        }
-
+        int arr[] = new int[n + 1];
+        int sum = 0;
         int max = 0;
         int day = 0;
 
-        for (int i = x; i <= n; i++) {
-            int cnt = sum[i] - sum[i - x];
+        for (int i = 1; i < x; i++) {
+            arr[i] = Integer.parseInt(st.nextToken());
+            sum += arr[i];
+        }
 
-            if (cnt > max) {
-                max = cnt;
+        for (int i = x; i <= n; i++) {
+            arr[i] = Integer.parseInt(st.nextToken());
+            sum += arr[i];
+            sum -= arr[i - x];
+
+            if (sum > max) {
+                max = sum;
                 day = 1;
 
-            } else if (cnt == max) {
+            } else if (sum == max) {
                 day++;
             }
         }
