@@ -40,7 +40,5 @@ public class Main {
         else sb.append(max).append("\n").append(day);
 
         System.out.println(sb.toString());
-
-        br.close();
     }
 }
