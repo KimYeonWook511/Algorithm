@@ -28,10 +28,10 @@ public class Main {
         int cnt = 0;
         int end = 0;
 
-        for (int i = 0; i < n; i++) {
-            if (arr[i][0] >= end) {
+        for (int[] t : arr) {
+            if (t[0] >= end) {
                 cnt++;
-                end = arr[i][1];
+                end = t[1];
             }
         }
 
