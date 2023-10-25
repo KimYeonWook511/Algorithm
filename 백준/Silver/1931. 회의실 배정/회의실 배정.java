@@ -1,22 +1,12 @@
 import java.io.*;
 import java.util.*;
 
-class Lecture {
-    int s;
-    int e;
-
-    public Lecture(int s, int e) {
-        this.s = s;
-        this.e = e;
-    }
-}
-
 public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
         int n = Integer.parseInt(br.readLine());
-        List<Lecture> list = new ArrayList<>();
+        int arr[][] = new int[n][2];
 
         StringTokenizer st;
         
@@ -25,25 +15,26 @@ public class Main {
             int s = Integer.parseInt(st.nextToken());
             int e = Integer.parseInt(st.nextToken());
 
-            list.add(run, new Lecture(s, e));
+            arr[run][0] = s;
+            arr[run][1] = e;
         }
 
-        Collections.sort(list, new Comparator<Lecture>() {
+        Arrays.sort(arr, new Comparator<int[]>() {
             @Override
-            public int compare(Lecture o1, Lecture o2) {
-                if (o1.e == o2.e) return o1.s - o2.s;
+            public int compare(int[] o1, int[] o2) {
+                if (o1[1] == o2[1]) return o1[0] - o2[0];
 
-                return o1.e - o2.e;
+                return o1[1] - o2[1];
             }
         });
 
         int cnt = 0;
         int end = 0;
 
-        for (Lecture lec : list) {
-            if (lec.s >= end) {
+        for (int i = 0; i < n; i++) {
+            if (arr[i][0] >= end) {
                 cnt++;
-                end = lec.e;
+                end = arr[i][1];
             }
         }
 
