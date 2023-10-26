@@ -11,29 +11,21 @@ public class Main {
 
         for (int run = 0; run < T; run++) {
             int N = Integer.parseInt(br.readLine());
-            int arr[][] = new int[N][2];
+            int arr[] = new int[N + 1];
 
             for (int i = 0; i < N; i++) {
                 st = new StringTokenizer(br.readLine());
 
-                arr[i][0] = Integer.parseInt(st.nextToken());
-                arr[i][1] = Integer.parseInt(st.nextToken());
+                arr[Integer.parseInt(st.nextToken())] = Integer.parseInt(st.nextToken());
             }
 
-            Arrays.sort(arr, new Comparator<int[]>() {
-                @Override
-                public int compare(int[] o1, int[] o2) {
-                    return o1[0] - o2[0];
-                }
-            });
-
             int cnt = 1;
-            int temp = arr[0][1];
+            int temp = arr[1];
 
-            for (int i = 1; i < N; i++) {
-                if (arr[i][1] < temp) {
+            for (int i = 2; i <= N; i++) {
+                if (arr[i] < temp) {
                     cnt++;
-                    temp = arr[i][1];
+                    temp = arr[i];
                 }
             }
 
