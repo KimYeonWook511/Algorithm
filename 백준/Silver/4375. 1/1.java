@@ -9,13 +9,15 @@ public class Main {
         String input = "";
 
         while ((input = br.readLine()) != null) {
+            BigInteger n = new BigInteger(input);
+
             BigInteger num = BigInteger.ONE;
 
             for (int i = input.length() - 1; i > 0; i--) {
                 num = num.multiply(BigInteger.TEN).add(BigInteger.ONE);
             }
             
-            while (num.mod(new BigInteger(input)) != BigInteger.ZERO) {
+            while (num.mod(n) != BigInteger.ZERO) {
                 num = num.multiply(BigInteger.TEN).add(BigInteger.ONE);
             }
 
