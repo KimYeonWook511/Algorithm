@@ -34,18 +34,18 @@ public class Main {
 
             for (int i = 0; i < N; i++) {
                 int left = 0;
-                int right = B.length;
+                int right = B.length - 1;
 
                 int k = A[i];
 
-                while (left < right) {
+                while (left <= right) {
                     int avg = (left + right) / 2;
 
                     if (B[avg] < k) left = avg + 1;
-                    else right = avg;
+                    else right = avg - 1;
                 }
 
-                sum += right;
+                sum += left;
             }
 
             sb.append(sum).append("\n");
