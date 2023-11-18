@@ -10,7 +10,7 @@ public class Main {
         int M = Integer.parseInt(st.nextToken());
 
         int left = 0;
-        int right = 1_000_000_000;
+        int right = 0;
         int arr[] = new int[N];
 
         for (int i = 0; i < N; i++) {
@@ -18,6 +18,7 @@ public class Main {
 
             arr[i] = num;
             left = Math.max(left, num);
+            right += num;
         }
 
         while (left < right) {
