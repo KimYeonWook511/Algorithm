@@ -11,25 +11,20 @@ public class Main {
 
         int arr[] = new int[N];
         
-        int min = 1;
-        int max = 0;
-        
         st = new StringTokenizer(br.readLine());
         for (int i = 0; i < N; i++) {
             arr[i] = Integer.parseInt(st.nextToken());
-            max = Math.max(max, arr[i]);
         }
         
-        Arrays.sort(arr);
-        
+        int min = 1;
+        int max = 1_000_000_000;
+
         while (min <= max) {
             int mid = (min + max) / 2;
 
             int cnt = 0;
 
-            for (int i = N - 1; i >= 0; i--) {
-                if (arr[i] < mid) break;
-
+            for (int i = 0; i < N; i++) {
                 cnt += arr[i] / mid;
             }
 
