@@ -17,7 +17,7 @@ public class Main {
         Arrays.sort(arr);
 
         int left = 1;
-        int right = 1_000_000_000;
+        int right = arr[N - 1] - arr[0];
         
         while (left <= right) {
             int mid = (left + right) / 2;
