@@ -25,7 +25,7 @@ public class Main {
 
         long right[] = new long[n];
         for (int i = 1; i < n; i++) {
-            right[i] = right[i - 1] + Long.parseLong(st.nextToken());
+            right[i] = right[i - 1] + Integer.parseInt(st.nextToken());
         }
 
         int point = 0;
@@ -33,14 +33,14 @@ public class Main {
 
         for (int i = 0; i < n; i++) {
             long d = right[n - 1] - right[i] + left[i] + cross[i];
-            
+
             if (d < min) {
                 min = d;
-                point = i + 1;
+                point = i;
             }
         }
 
-        System.out.println(point + " " + min);
+        System.out.println((point + 1) + " " + min);
 
         br.close();
     }
