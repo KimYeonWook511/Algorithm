@@ -29,8 +29,6 @@ public class Main {
         }
 
         while (true) {
-            if (r < 0 || c < 0) break;
-            if (r >= N || c >= M) break;
             if (!arr[r][c]) break;
 
             if (!chk[r][c]) {
@@ -45,8 +43,6 @@ public class Main {
                 int nr = r + val[d][0]; 
                 int nc = c + val[d][1];
 
-                if (nr < 0 || nc < 0) continue;
-                if (nr >= N || nc >= M) continue;
                 if (chk[nr][nc]) continue;
                 if (!arr[nr][nc]) continue;
 
