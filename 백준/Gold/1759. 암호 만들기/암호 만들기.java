@@ -29,16 +29,16 @@ public class Main {
             if (arr[i] == 'a' || arr[i] == 'e' || arr[i] == 'i' || arr[i] == 'o' || arr[i] == 'u') aeiou[i] = true;
         }
 
-        func(0, 0, 0, 0);
+        func(0, 0, 0);
 
         System.out.println(sb.toString());
 
         br.close();
     }
 
-    static void func(int len, int idx, int consonantCnt, int vowelCnt) {
+    static void func(int len, int idx, int vowelCnt) {
         if (len == L) {
-            if (consonantCnt >= 2 && vowelCnt >= 1) {
+            if (vowelCnt >= 1 && len - vowelCnt >= 2) {
                 for (int i = 0; i < len; i++) {
                     sb.append(result[i]);
                 }
@@ -53,8 +53,8 @@ public class Main {
 
             chk[i] = true;
             result[len] = arr[i];
-            if (aeiou[i]) func(len + 1, i + 1, consonantCnt, vowelCnt + 1);
-            else func(len + 1, i + 1, consonantCnt + 1, vowelCnt);
+            if (aeiou[i]) func(len + 1, i + 1, vowelCnt + 1);
+            else func(len + 1, i + 1, vowelCnt);
             chk[i] = false;
         }
     }
