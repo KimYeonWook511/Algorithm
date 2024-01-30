@@ -10,7 +10,7 @@ public class Main {
 	public static void main(String[] args) throws IOException {
 		int N = Integer.parseInt(br.readLine());
 
-		sb.append(new BigInteger("2").pow(N).subtract(BigInteger.ONE)).append("\n");
+		sb.append(BigInteger.TWO.pow(N).subtract(BigInteger.ONE)).append("\n");
 		
 		if (N <= 20) func(1, 3, 2, N);
 		
