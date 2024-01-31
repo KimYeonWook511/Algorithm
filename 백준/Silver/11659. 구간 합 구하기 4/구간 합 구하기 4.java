@@ -1,40 +1,39 @@
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
 import java.util.StringTokenizer;
 
 public class Main {
 	static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-	static BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-	
+	static StringBuilder sb = new StringBuilder();
+    static StringTokenizer st;
+
+    static int N, M, arr[];
+
 	public static void main(String[] args) throws IOException {
 		
-		StringTokenizer st = new StringTokenizer(br.readLine());
-		int n = Integer.parseInt(st.nextToken());
-		int m = Integer.parseInt(st.nextToken());
-		int arr[] = new int[n];
+		st = new StringTokenizer(br.readLine());
+		N = Integer.parseInt(st.nextToken());
+		M = Integer.parseInt(st.nextToken());
+		arr = new int[N + 1];
 		
 		st = new StringTokenizer(br.readLine());
-		arr[0] = Integer.parseInt(st.nextToken()); // n은 1 이상
 		
-		for (int i = 1; i < n; i++) {
+		for (int i = 1; i <= N; i++) {
 			arr[i] = arr[i - 1] + Integer.parseInt(st.nextToken());
 		}
 		
-		for (int run = 0; run < m; run++) {
+		for (int run = 0; run < M; run++) {
 			st = new StringTokenizer(br.readLine());
+
 			int startIdx = Integer.parseInt(st.nextToken()) - 1;
-			int endIdx = Integer.parseInt(st.nextToken()) - 1;
-			
-			if (startIdx == 0) bw.write(arr[endIdx] + "\n");
-			else bw.write(arr[endIdx] - arr[startIdx - 1] + "\n");
+			int endIdx = Integer.parseInt(st.nextToken());
+            
+            sb.append(arr[endIdx] - arr[startIdx]).append("\n");
 		}
-		
-		bw.flush();
+        
+        System.out.println(sb);
 
 		br.close();
-		bw.close();
 	}
 }
