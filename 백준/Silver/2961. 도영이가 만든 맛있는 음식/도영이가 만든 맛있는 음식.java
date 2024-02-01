@@ -38,7 +38,7 @@ public class Main {
 			taste[i][1] = Integer.parseInt(st.nextToken());
 		}
 
-		func(0, 1, 0, false);
+		func(1, 1, 0, false);
 		
 		System.out.println(min);
 
@@ -49,6 +49,8 @@ public class Main {
 		if (depth == N) {
 			if (flag) min = Math.min(min, Math.abs(taste0 - taste1));
 
+			min = Math.min(min, Math.abs(taste0 * taste[0][0] - (taste1 + taste[0][1])));
+			
 			return;
 		}
 		
