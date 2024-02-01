@@ -2,7 +2,20 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.StringTokenizer;
-
+/**
+ * @author 김연욱 
+ * @date 24.01.31
+ * @link https://www.acmicpc.net/problem/11660
+ * @keyword_solution (x1, y1)부터 (x2, y2)까지 합
+ * @input
+ * - 1 ≤ N ≤ 1,024
+ * - 1 ≤ M ≤ 100,000
+ * - x1 ≤ x2, y1 ≤ y2
+ * @output
+ * - 1,024 * 1,024 * 1,000 = 1,048,576,000
+ * @time_complex O(N^2 + M) -> O(N^2)
+ * @perf 117976KB | 836ms
+ */
 public class Main {
 	static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 	static StringBuilder sb = new StringBuilder();
