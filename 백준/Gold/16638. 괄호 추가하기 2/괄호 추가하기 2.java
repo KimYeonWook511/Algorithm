@@ -1,5 +1,4 @@
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class Main {
@@ -8,14 +7,15 @@ public class Main {
 
 	static int N, max = Integer.MIN_VALUE;
 	static char arr[];
-	
-	public static void main(String[] args) throws IOException {
+	static String str;
+    
+	public static void main(String[] args) throws Exception {
 		
 		N = Integer.parseInt(br.readLine());
 		
 		arr = new char[N];
 		
-		String str = br.readLine();
+        str = br.readLine();
 		for (int i = 0; i < N; i++) {
 			arr[i] = str.charAt(i);
 		}
