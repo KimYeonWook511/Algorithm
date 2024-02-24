@@ -14,21 +14,16 @@ public class Solution {
         	int N = Integer.parseInt(st.nextToken());
             int K = Integer.parseInt(st.nextToken());
 
-            int V[] = new int[N];
-            int C[] = new int[N];
-
-            for (int i = 0; i < N; i++) {
-                st = new StringTokenizer(br.readLine());
-                V[i] = Integer.parseInt(st.nextToken());
-                C[i] = Integer.parseInt(st.nextToken());
-            }
-
             int dp[] = new int[K + 1];
 
             for (int i = 0; i < N; i++) {
+                st = new StringTokenizer(br.readLine());
+                int V = Integer.parseInt(st.nextToken());
+                int C = Integer.parseInt(st.nextToken());
+
                 for (int k = K; k > 0; k--) {
-                    if (k < V[i]) dp[k] = Math.max(dp[k], dp[k - 1]);
-                    else dp[k] = Math.max(dp[k], C[i] + dp[k - V[i]]);
+                    if (k < V) dp[k] = Math.max(dp[k], dp[k - 1]);
+                    else dp[k] = Math.max(dp[k], C + dp[k - V]);
                 }
             }
 
