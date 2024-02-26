@@ -1,47 +1,57 @@
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.util.StringTokenizer;
+import java.io.*;
+import java.util.*;
 
 public class Main {
-	static int N, M, cnt;
-	static boolean arr[][], chk[];
 	
-	public static void main(String[] args) throws Exception {
+	static int parent[];
+	static List<Integer> graph[];
+	
+	public static void main(String[] args) throws Exception{
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		StringTokenizer st;
 		
-		N = Integer.parseInt(br.readLine());
-		M = Integer.parseInt(br.readLine());
+		int N = Integer.parseInt(br.readLine());
 		
-		arr = new boolean[N][N];
-		chk = new boolean[N];
+		parent = new int[N + 1];
+		graph = new ArrayList[N + 1];
+		
+		for (int i = 1; i <= N; i++) {
+			parent[i] = i;
+			graph[i] = new ArrayList<>();
+		}
+
+		int M = Integer.parseInt(br.readLine());
 		
 		for (int run = 0; run < M; run++) {
 			st = new StringTokenizer(br.readLine());
-			int x = Integer.parseInt(st.nextToken()) - 1;
-			int y = Integer.parseInt(st.nextToken()) - 1;
+			int a = Integer.parseInt(st.nextToken());
+			int b = Integer.parseInt(st.nextToken());
 			
-			arr[x][y] = true;
-			arr[y][x] = true;
+			union(a, b);
 		}
 		
-		func(0);
+		int cnt = 0;
+		for (int i = 2; i <= N; i++) {
+			if (find(i) == 1) cnt++;
+		}
+		
 		
 		System.out.println(cnt);
 		
 		br.close();
 	}
 	
-	static void func(int search) {
-		chk[search] = true;
+	static int find(int x) {
+		if (parent[x] == x) return x;
 		
-		for (int i = 0; i < N; i++) {
-			if (chk[i]) continue;
-			
-			if (arr[search][i] || arr[i][search]) {
-				cnt++;
-				func(i);
-			}
-		}
+		return parent[x] = find(parent[x]);
+	}
+	
+	static void union(int x, int y) {
+		x = find(x);
+		y = find(y);
+		
+		if (x > y) parent[x] = y;
+		else parent[y] = x;
 	}
 }
