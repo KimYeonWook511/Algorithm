@@ -1,37 +1,57 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.Stack;
-import java.util.StringTokenizer;
+import java.io.*;
+import java.util.*;
 
 public class Main {
-	static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-	static StringTokenizer st;
+	static class Work {
+		int A, T;
+		
+		Work(int A, int T) {
+			this.A = A;
+			this.T = T;
+		}
+	}
 	
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) throws Exception{
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringTokenizer st;
 		
-		int n = Integer.parseInt(br.readLine());
-		int at[][] = new int[n][2];
-		Stack<Integer> stack = new Stack<>();
-		int score = 0;
+		Deque<Work> deque = new ArrayDeque<>();
 		
-		for (int run = 0; run < n; run++) {
+		int N = Integer.parseInt(br.readLine());
+		
+		Work cur;
+		int sum = 0;
+		
+		for (int run = 0; run < N; run++) {
 			st = new StringTokenizer(br.readLine());
+			int cmd = Integer.parseInt(st.nextToken());
 			
-			if (Integer.parseInt(st.nextToken()) == 1) {
-				at[run][0] = Integer.parseInt(st.nextToken());
-				at[run][1] = Integer.parseInt(st.nextToken()) - 1;
+			if (cmd == 0) {
+				if (deque.isEmpty()) continue;
 				
-				stack.push(run);
+				cur = deque.pollLast();
 				
-			} else if (!stack.empty()) {
-				at[stack.peek()][1]--;
+				if (--cur.T == 0) {
+					sum += cur.A;
+					continue;
+				}
+				
+				deque.offerLast(cur);
+				continue;
 			}
 			
-			if (!stack.empty() && at[stack.peek()][1] == 0) score += at[stack.pop()][0];
+			int A = Integer.parseInt(st.nextToken());
+			int T = Integer.parseInt(st.nextToken()) - 1;
+			
+			if (T != 0) {
+				deque.offerLast(new Work(A, T));
+				continue;
+			}
+				
+			sum += A;
 		}
 		
-		System.out.println(score);
+		System.out.println(sum);
 		
 		br.close();
 	}
