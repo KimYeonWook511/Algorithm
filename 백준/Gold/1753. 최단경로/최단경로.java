@@ -1,10 +1,5 @@
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.PriorityQueue;
-import java.util.StringTokenizer;
+import java.io.*;
+import java.util.*;
 
 public class Main {
 	static class Node {
@@ -22,7 +17,7 @@ public class Main {
 	static StringBuilder sb = new StringBuilder();
 
 	static int V, E, K, u, v, w, dist[];
-	static List<List<Node>> graph = new ArrayList<>();
+	static List<Node> graph[];
 	static PriorityQueue<Node> pq = new PriorityQueue<>(new Comparator<Node>() {
 		@Override
 		public int compare(Node o1, Node o2) {
@@ -38,11 +33,12 @@ public class Main {
 		E = Integer.parseInt(st.nextToken());
 		K = Integer.parseInt(br.readLine());
 
+		graph = new ArrayList[V + 1];
 		dist = new int[V + 1];
 		chk = new boolean[V + 1];
 
 		for (int i = 0; i <= V; i++) {
-			graph.add(new ArrayList<>());
+			graph[i] = new ArrayList<>();
 			dist[i] = Integer.MAX_VALUE;
 		}
 		
@@ -53,7 +49,7 @@ public class Main {
 			v = Integer.parseInt(st.nextToken());
 			w = Integer.parseInt(st.nextToken());
 			
-			graph.get(u).add(new Node(v, w));
+			graph[u].add(new Node(v, w));
 		}
 
 		dist[K] = 0;
@@ -67,7 +63,7 @@ public class Main {
 
 			chk[cur.v] = true;
 
-			for (Node next : graph.get(cur.v)) {
+			for (Node next : graph[cur.v]) {
 				if (dist[next.v] <= dist[cur.v] + next.w) continue;
 
 				dist[next.v] = dist[cur.v] + next.w;
