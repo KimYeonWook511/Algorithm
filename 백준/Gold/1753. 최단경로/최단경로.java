@@ -12,30 +12,18 @@ public class Main {
 		}
 	}
 	
-	static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-	static StringTokenizer st;
-	static StringBuilder sb = new StringBuilder();
-
-	static int V, E, K, u, v, w, dist[];
-	static List<Node> graph[];
-	static PriorityQueue<Node> pq = new PriorityQueue<>(new Comparator<Node>() {
-		@Override
-		public int compare(Node o1, Node o2) {
-			return Integer.compare(o1.w, o2.w);
-		}
-	});
-	static Node cur;
-	static boolean chk[];
-	
 	public static void main(String[] args) throws Exception {
-		st = new StringTokenizer(br.readLine());
-		V = Integer.parseInt(st.nextToken());
-		E = Integer.parseInt(st.nextToken());
-		K = Integer.parseInt(br.readLine());
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringBuilder sb = new StringBuilder();
+		
+		StringTokenizer st = new StringTokenizer(br.readLine());
+		int V = Integer.parseInt(st.nextToken());
+		int E = Integer.parseInt(st.nextToken());
+		int K = Integer.parseInt(br.readLine());
 
-		graph = new ArrayList[V + 1];
-		dist = new int[V + 1];
-		chk = new boolean[V + 1];
+		List<Node> graph[] = new ArrayList[V + 1];
+		int dist[] = new int[V + 1];
+		boolean chk[] = new boolean[V + 1];
 
 		for (int i = 0; i <= V; i++) {
 			graph[i] = new ArrayList<>();
@@ -45,18 +33,25 @@ public class Main {
 		for (int run = 0; run < E; run++) {
 			st = new StringTokenizer(br.readLine());
 			
-			u = Integer.parseInt(st.nextToken());
-			v = Integer.parseInt(st.nextToken());
-			w = Integer.parseInt(st.nextToken());
+			int u = Integer.parseInt(st.nextToken());
+			int v = Integer.parseInt(st.nextToken());
+			int w = Integer.parseInt(st.nextToken());
 			
 			graph[u].add(new Node(v, w));
 		}
 
+		PriorityQueue<Node> pq = new PriorityQueue<>(new Comparator<Node>() {
+			@Override
+			public int compare(Node o1, Node o2) {
+				return Integer.compare(o1.w, o2.w);
+			}
+		});
+		
 		dist[K] = 0;
 		pq.add(new Node(K, 0));
 
 		while (!pq.isEmpty()) {
-			cur = pq.poll();
+			Node cur = pq.poll();
 			
 			if (dist[cur.v] < cur.w) continue;
 			if (chk[cur.v]) continue;
