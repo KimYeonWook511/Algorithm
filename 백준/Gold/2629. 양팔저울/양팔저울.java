@@ -1,52 +1,50 @@
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.util.StringTokenizer;
+import java.io.*;
+import java.util.*;
 
 public class Main {
-	static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-	static BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-	static StringTokenizer st;
-	
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) throws Exception {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringTokenizer st;
+		StringBuilder sb = new StringBuilder();
 		
-		int n = Integer.parseInt(br.readLine());
-		boolean dp[][] = new boolean[n + 1][15001];
-		int w[] = new int[n + 1];
+		int N = Integer.parseInt(br.readLine());
+		
+		int arr[] = new int[N];
+		
 		st = new StringTokenizer(br.readLine());
-
-		for (int i = 1; i <= n; i++) {
-			w[i] = Integer.parseInt(st.nextToken());
+		for (int i = 0; i < N; i++) {
+			arr[i] = Integer.parseInt(st.nextToken());
 		}
+
+		boolean dp[][] = new boolean[N + 1][15001];
+		int sum = arr[0];
+		dp[0][arr[0]] = true;
 		
-		dp[1][0] = true;
-		dp[1][w[1]] = true;
-		
-		for (int r = 2; r <= n; r++) {
-			for (int c = 0; c <= 15000; c++) {
-				if (dp[r - 1][c]) {
-					dp[r][c] = true;
-					if (c + w[r] <= 15000) dp[r][c + w[r]] = true;
-					dp[r][Math.abs(c - w[r])] = true;
-				}
+		for (int r = 1; r < N; r++) {
+			sum += arr[r];
+			dp[r][arr[r]] = true;
+			
+			for (int c = 1; c <= sum; c++) {
+				if (!dp[r - 1][c]) continue;
+				
+				dp[r][c] = true;
+				dp[r][c + arr[r]] = true;
+				dp[r][Math.abs(c - arr[r])] = true;
 			}
 		}
 		
-		int m = Integer.parseInt(br.readLine());
-		st = new StringTokenizer(br.readLine());
+		int M = Integer.parseInt(br.readLine());
 		
-		for (int run = 0; run < m; run++) {
-			int bead = Integer.parseInt(st.nextToken());
+		st = new StringTokenizer(br.readLine());
+		for (int i = 0; i < M; i++) {
+			int K = Integer.parseInt(st.nextToken());
 			
-			if (bead > 15000) bw.write("N ");
-			else bw.write(dp[n][bead] ? "Y " : "N ");
+			if (K > 15000) sb.append("N ");
+			else sb.append(dp[N - 1][K] ? "Y " : "N ");
 		}
 		
-		bw.flush();
-
+		System.out.println(sb);
+		
 		br.close();
-		bw.close();
 	}
 }
