@@ -56,17 +56,9 @@ public class Main {
 		
 		if (x == y) return parent[x];
 		
-		if (x < y) {
-			parent[x] += parent[y];
-			parent[y] = x;
-			
-			return parent[x];
-			
-		} else {
-			parent[y] += parent[x];
-			parent[x] = y;
-			
-			return parent[y];
-		}
+		parent[x] += parent[y];
+		parent[y] = x;
+		
+		return parent[x];
 	}
 }
