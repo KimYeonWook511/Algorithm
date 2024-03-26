@@ -15,23 +15,31 @@ public class Main {
 		
 		while ((N = Integer.parseInt(br.readLine())) != 0) {
 			int arr[][] = new int[N][N];
-			int dp[][] = new int[N][N];
+			int min[][] = new int[N][N];
 			
 			for (int r = 0; r < N; r++) {
 				st = new StringTokenizer(br.readLine());
 				
 				for (int c = 0; c < N; c++) {
 					arr[r][c] = Integer.parseInt(st.nextToken());
-					dp[r][c] = Integer.MAX_VALUE;
+					min[r][c] = Integer.MAX_VALUE;
 				}
 			}
 			
-			Deque<int[]> deque = new ArrayDeque<>();
-			deque.offer(new int[] {0, 0});
-			dp[0][0] = arr[0][0];
+			PriorityQueue<int[]> pq = new PriorityQueue<>(new Comparator<int[]>() {
+				@Override
+				public int compare(int[] o1, int[] o2) {
+					return Integer.compare(o1[2], o2[2]);
+				}
+			});
 			
-			while (!deque.isEmpty()) {
-				int cur[] = deque.poll();
+			min[0][0] = arr[0][0];
+			pq.offer(new int[] {0, 0, min[0][0]});
+			
+			while (!pq.isEmpty()) {
+				int cur[] = pq.poll();
+				
+				if (cur[0] == N - 1 && cur[1] == N - 1) break;
 				
 				int nr, nc;
 				for (int d = 0; d < 4; d++) {
@@ -40,14 +48,14 @@ public class Main {
 					
 					if (nr < 0 || nc < 0) continue;
 					if (nr >= N || nc >= N) continue;
-					if (dp[nr][nc] <= dp[cur[0]][cur[1]] + arr[nr][nc]) continue;
+					if (min[nr][nc] <= min[cur[0]][cur[1]] + arr[nr][nc]) continue;
 					
-					dp[nr][nc] = dp[cur[0]][cur[1]] + arr[nr][nc];
-					deque.offer(new int[] {nr, nc});
+					min[nr][nc] = min[cur[0]][cur[1]] + arr[nr][nc];
+					pq.offer(new int[] {nr, nc, min[nr][nc]});
 				}
 			}
 			
-			sb.append("Problem ").append(T++).append(": ").append(dp[N - 1][N - 1]).append("\n");
+			sb.append("Problem ").append(T++).append(": ").append(min[N - 1][N - 1]).append("\n");
 		}
 		
 		System.out.println(sb);
