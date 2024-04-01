@@ -148,18 +148,4 @@ public class Main {
 		
 		return parent[cur[0]][cur[1]] = find(x);
 	}
-	
-//	static void union(int x, int y) {
-//		x = find(x);
-//		y = find(y);
-//		
-//		if (x < y) {
-//			int cur[] = map.get(y);
-//			parent[cur[0]][cur[1]] = x;
-//			
-//		} else {
-//			int cur[] = map.get(x);
-//			parent[cur[0]][cur[1]] = y;
-//		}
-//	}
 }
