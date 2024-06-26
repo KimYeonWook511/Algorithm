@@ -30,11 +30,11 @@ public class Main {
             arr[++topIdx] = num;
         }
 
-        for (int i = 0; i < topIdx - K + 1; i++) {
+        for (int i = topIdx - K; i >= 0; i--) {
             sb.append(arr[i]);
         }
 
-        System.out.println(sb);
+        System.out.println(sb.reverse());
 
         br.close();
     }
