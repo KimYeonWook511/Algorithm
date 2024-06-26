@@ -10,26 +10,28 @@ public class Main {
         int N = Integer.parseInt(st.nextToken());
         int K = Integer.parseInt(st.nextToken());
 
-        Deque<Character> deque = new ArrayDeque<>();
+        char arr[] = new char[N];
+        int topIdx = -1;
+
         String str = br.readLine();
         char num = 0;
 
         for (int i = 0; i < N; i++) {
             num = str.charAt(i);
 
-            while (!deque.isEmpty()) {
+            while (topIdx >= 0) {
                 if (K == 0) break;
-                if (num <= deque.peekLast()) break;
+                if (num <= arr[topIdx]) break;
 
-                deque.pollLast();
+                topIdx--;
                 K--;
             }
 
-            deque.offer(num);
+            arr[++topIdx] = num;
         }
 
-        for (int i = deque.size() - K; i > 0; i--) {
-            sb.append(deque.pollFirst());
+        for (int i = 0; i < topIdx - K + 1; i++) {
+            sb.append(arr[i]);
         }
 
         System.out.println(sb);
