@@ -17,16 +17,16 @@ public class Main {
         
         int val = N >> 1;
         int min = Integer.MAX_VALUE;
-        Map<Integer, Integer> cntMap = new HashMap<>();
+        int cnt[] = new int[N + 1];
         
         for (int i = 0; i < H; i++) {
         	val += arr[i];
         	min = Math.min(min, val);
         	
-        	cntMap.put(val, cntMap.getOrDefault(val, 0) + 1);
+        	cnt[val]++;
         }
         
-        System.out.println(min + " " + cntMap.get(min));
+        System.out.println(min + " " + cnt[min]);
 
         br.close();
     }
