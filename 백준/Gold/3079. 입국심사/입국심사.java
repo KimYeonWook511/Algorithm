@@ -10,14 +10,12 @@ public class Main {
         int M = Integer.parseInt(st.nextToken());
         
         int arr[] = new int[N];
-        int min = Integer.MAX_VALUE;
         for (int i = 0; i < N; i++) {
         	arr[i] = Integer.parseInt(br.readLine());
-        	min = Math.min(min, arr[i]);
         }
         
         long left = 0;
-        long right = 1_000_000_000L * min; // 10억 * 10억으로 하면 val += mid / arr[i]시 오버플로우 생길 수 있음!
+        long right = 1_000_000_000L * 1_000_000_000;
         
         while (left <= right) {
         	long mid = (left + right) >> 1;
@@ -25,6 +23,8 @@ public class Main {
         
         	for (int i = 0; i < N; i++) {
         		val += mid / arr[i];
+        		
+        		if (val >= M) break;
         	}
         	
         	if (val < M) left = mid + 1;
