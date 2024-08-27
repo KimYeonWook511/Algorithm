@@ -7,12 +7,12 @@ public class Main {
 		
 		StringTokenizer st = new StringTokenizer(br.readLine());
 		int N = Integer.parseInt(st.nextToken());
-		st.nextToken(); // d 버리기
+		int d = Integer.parseInt(st.nextToken());
 		int k = Integer.parseInt(st.nextToken());
 		int c = Integer.parseInt(st.nextToken());
 		
 		int arr[] = new int[N];
-		int cnt[] = new int[3001];
+		int cnt[] = new int[d + 1];
 		int result = 1;
 		
 		cnt[c]++;
@@ -40,7 +40,6 @@ public class Main {
 			
 			max = Math.max(max, result);
 		}
-		
 		
 		for (int i = 0; i < k - 1; i++) {
 			// 이전 초밥 빼기
