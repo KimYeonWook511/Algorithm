@@ -23,24 +23,15 @@ public class Main {
         int M = Integer.parseInt(st.nextToken());
         int N = Integer.parseInt(st.nextToken());
         
-        PriorityQueue<Robot> pq = new PriorityQueue<>(new Comparator<Robot>() {
-            @Override
-            public int compare(Robot o1, Robot o2) {
-                return Integer.compare(o1.w, o2.w);
-            }
-        });
+        Deque<Robot> deque = new ArrayDeque<>();
         boolean arr[][] = new boolean[M][N];
-        int chk[][][] = new int[5][M][N];
+        boolean chk[][][] = new boolean[5][M][N];
         
         for (int r = 0; r < M; r++) {
             st = new StringTokenizer(br.readLine());
             
             for (int c = 0; c < N; c++) {
                 arr[r][c] = st.nextToken().charAt(0) == '0' ? true : false;
-                
-                for (int i = 1; i <= 4; i++) {
-                    chk[i][r][c] = Integer.MAX_VALUE;
-                }
             }
         }
         
@@ -50,15 +41,13 @@ public class Main {
         st = new StringTokenizer(br.readLine());
         int end[] = {Integer.parseInt(st.nextToken()) - 1, Integer.parseInt(st.nextToken()) - 1, Integer.parseInt(st.nextToken())};
 
-        pq.offer(new Robot(start[0], start[1], start[2], 0));
-        chk[start[2]][start[0]][start[1]] = 0;
+        deque.offer(new Robot(start[0], start[1], start[2], 0));
+        chk[start[2]][start[0]][start[1]] = true;
         
         Robot cur;
-        while (!pq.isEmpty()) {
-            cur = pq.poll();
+        while (!deque.isEmpty()) {
+            cur = deque.poll();
             
-            if (cur.w > chk[cur.d][cur.r][cur.c]) continue;
-
             if (cur.r == end[0] && cur.c == end[1] && cur.d == end[2]) {
                 System.out.println(cur.w);
                 break;
@@ -74,32 +63,32 @@ public class Main {
                 if (nr >= M || nc >= N) break;
                 if (!arr[nr][nc]) break;
 
-                if (chk[cur.d][nr][nc] <= cur.w + 1) continue;
+                if (chk[cur.d][nr][nc]) continue;
                 
-                pq.offer(new Robot(nr, nc, cur.d, cur.w + 1));
-                chk[cur.d][nr][nc] = cur.w + 1;
+                deque.offer(new Robot(nr, nc, cur.d, cur.w + 1));
+                chk[cur.d][nr][nc] = true;
             }
             
             if (cur.d >= 3) {
-                if (chk[1][cur.r][cur.c] > cur.w + 1) {
-                    pq.offer(new Robot(cur.r, cur.c, 1, cur.w + 1));
-                    chk[1][cur.r][cur.c] = cur.w + 1;
+                if (!chk[1][cur.r][cur.c]) {
+                    deque.offer(new Robot(cur.r, cur.c, 1, cur.w + 1));
+                    chk[1][cur.r][cur.c] = true;
                 }
 
-                if (chk[2][cur.r][cur.c] > cur.w + 1) {
-                    pq.offer(new Robot(cur.r, cur.c, 2, cur.w + 1));
-                    chk[2][cur.r][cur.c] = cur.w + 1;
+                if (!chk[2][cur.r][cur.c]) {
+                    deque.offer(new Robot(cur.r, cur.c, 2, cur.w + 1));
+                    chk[2][cur.r][cur.c] = true;
                 }
 
             } else {
-                if (chk[3][cur.r][cur.c] > cur.w + 1) {
-                    pq.offer(new Robot(cur.r, cur.c, 3, cur.w + 1));
-                    chk[3][cur.r][cur.c] = cur.w + 1;
+                if (!chk[3][cur.r][cur.c]) {
+                    deque.offer(new Robot(cur.r, cur.c, 3, cur.w + 1));
+                    chk[3][cur.r][cur.c] = true;
                 }
 
-                if (chk[4][cur.r][cur.c] > cur.w + 1) {
-                    pq.offer(new Robot(cur.r, cur.c, 4, cur.w + 1));
-                    chk[4][cur.r][cur.c] = cur.w + 1;
+                if (!chk[4][cur.r][cur.c]) {
+                    deque.offer(new Robot(cur.r, cur.c, 4, cur.w + 1));
+                    chk[4][cur.r][cur.c] = true;
                 }
             }
         }
