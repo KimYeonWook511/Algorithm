@@ -13,10 +13,10 @@ public class Main {
         }
 
         int T = Integer.parseInt(br.readLine());
+        int arr[] = new int[46];
 
         for (int t = 0; t < T; t++) {
             int n = Integer.parseInt(br.readLine());
-            int arr[] = new int[46];
             int idx = 0;
 
             for (int i = 45; i > 0; i--) {
