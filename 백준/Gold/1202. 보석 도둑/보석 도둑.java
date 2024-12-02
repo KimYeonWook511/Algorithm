@@ -18,18 +18,7 @@ public class Main {
         int N = Integer.parseInt(st.nextToken());
         int K = Integer.parseInt(st.nextToken());
         
-        Jewel arr[] = new Jewel[N];
-        for (int i = 0; i < N; i++) {
-            st = new StringTokenizer(br.readLine());
-            arr[i] = new Jewel(Integer.parseInt(st.nextToken()), Integer.parseInt(st.nextToken()));
-        }
-
-        Integer C[] = new Integer[K];
-        for (int i = 0; i < K; i++) {
-            C[i] = Integer.parseInt(br.readLine());
-        }
-
-        Arrays.sort(arr, new Comparator<Jewel>() {
+        PriorityQueue<Jewel> pqJewel = new PriorityQueue<>(new Comparator<Jewel>() {
             @Override
             public int compare(Jewel o1, Jewel o2) {
                 // 어차피 아래서 같은 무게 보석에 대해 가치 확인을 다시 하게 됨
@@ -37,13 +26,20 @@ public class Main {
                 return -Integer.compare(o1.M, o2.M);
             }
         });
+        for (int i = 0; i < N; i++) {
+            st = new StringTokenizer(br.readLine());
+            pqJewel.offer(new Jewel(Integer.parseInt(st.nextToken()), Integer.parseInt(st.nextToken())));
+        }
 
-        Arrays.sort(C, new Comparator<Integer>() {
+        PriorityQueue<Integer> pqBag = new PriorityQueue<>(new Comparator<Integer>() {
             @Override
             public int compare(Integer o1, Integer o2) {
                 return -Integer.compare(o1, o2);
             }
         });
+        for (int i = 0; i < K; i++) {
+            pqBag.offer(Integer.parseInt(br.readLine()));
+        }
 
         PriorityQueue<Integer> pq = new PriorityQueue<>(new Comparator<Integer>() {
             @Override
@@ -53,19 +49,22 @@ public class Main {
         });
 
         long result = 0;
-        int CIdx = 0;
-        for (int i = 0; i < N; i++) {
-            if (CIdx >= K || arr[i].M > C[CIdx]) {
+        Jewel cur;
+        while (!pqJewel.isEmpty()) {
+            cur = pqJewel.poll();
+
+            if (pqBag.isEmpty() || cur.M > pqBag.peek()) {
                 if (pq.isEmpty()) continue;
-                if (pq.peek() >= arr[i].V) continue;
+                if (pq.peek() >= cur.V) continue;
                 
                 result -= pq.poll();
-                CIdx--;
+
+            } else {
+                pqBag.poll();
             }
 
-            result += arr[i].V;
-            pq.offer(arr[i].V);
-            CIdx++;
+            result += cur.V;
+            pq.offer(cur.V);
         }
 
         System.out.println(result);
