@@ -1,42 +1,43 @@
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
 import java.util.StringTokenizer;
 
 public class Main {
 	static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-	static BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+	static StringTokenizer st;
+	static StringBuilder sb = new StringBuilder();
+
+	static int N, arr[], stack[], result[], idx;
 	
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) throws Exception {
+		N = Integer.parseInt(br.readLine());
 		
-		int n = Integer.parseInt(br.readLine());
-		StringTokenizer st = new StringTokenizer(br.readLine());
-		int arr[] = new int[n + 1];
-		int result[] = new int[n + 1];
-		int stack[] = new int[n + 1];
-		int top = n + 1;
+		arr = new int[N + 1];
+		stack = new int[N + 1];
+		result = new int[N + 1];
 		
-		for (int i = 1; i <= n; i++) {
+		st = new StringTokenizer(br.readLine());
+		for (int i = 1; i <= N; i++) {
 			arr[i] = Integer.parseInt(st.nextToken());
 		}
 		
-		for (int i = n; i > 0; i--) {
-			while (top != n + 1 && arr[i] > arr[stack[top]]) {
-				result[stack[top]] = i;
-				top++;
+		stack[N] = N;
+		idx = N;
+		
+		for (int i = N - 1; i >= 1; i--) {
+			while (idx <= N && arr[i] > arr[stack[idx]]) {
+				result[stack[idx++]] = i;
 			}
 			
-			top--;
-			stack[top] = i;
+			stack[--idx] = i;
 		}
 		
-		for (int i = 1; i <= n; i++) {
-			bw.write(result[i] + " ");
+		for (int i = 1; i <= N; i++) {
+			sb.append(result[i]).append(" ");
 		}
+		
+		System.out.println(sb);
 		
 		br.close();
-		bw.close();
 	}
 }
