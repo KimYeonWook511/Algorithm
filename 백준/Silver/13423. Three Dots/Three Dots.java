@@ -12,26 +12,31 @@ public class Main {
         for (int t = 0; t < T; t++) {
             int N = Integer.parseInt(br.readLine());
             int arr[] = new int[N];
-            Set<Integer> set = new HashSet<>();
 
             st = new StringTokenizer(br.readLine());
             for (int i = 0; i < N; i++) {
                 arr[i] = Integer.parseInt(st.nextToken());
-                set.add(arr[i]);
             }
 
             Arrays.sort(arr);
 
             int result = 0;
 
-            for (int i = 0; i < N - 2; i++) {
-                for (int k = i + 2; k < N; k++) {
-                    int sum = arr[i] + arr[k];
+            for (int i = 1; i < N - 1; i++) {
+                int l = 0;
+                int r = N - 1;
+                int val = arr[i] << 1;
 
-                    if (sum % 2 != 0) continue;
-                    if (!set.contains(sum >> 1)) continue;
+                while (l < i && r > i) {
+                    int sum = arr[l] + arr[r];
 
-                    result++;
+                    if (sum < val) l++;
+                    else if (sum > val) r--;
+                    else {
+                        result++;
+                        l++;
+                        r--;
+                    }
                 }
             }
 
