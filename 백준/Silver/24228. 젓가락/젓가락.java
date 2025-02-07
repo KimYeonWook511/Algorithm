@@ -6,10 +6,8 @@ public class Main {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
         StringTokenizer st = new StringTokenizer(br.readLine());
-        long N = Long.parseLong(st.nextToken());
-        long R = Long.parseLong(st.nextToken());
 
-        System.out.println(N + 1 + ((R - 1) << 1));
+        System.out.println(Long.parseLong(st.nextToken()) + 1 + ((Long.parseLong(st.nextToken()) - 1) << 1));
 
         br.close();
     }
