@@ -42,6 +42,7 @@ public class Main {
                 deque.offer(new Node(r, c));
                 chk[r][c] = result[0];
 
+                int temp = 0;
                 Node cur;
                 while (!deque.isEmpty()) {
                     cur = deque.poll();
@@ -49,10 +50,17 @@ public class Main {
                     size[result[0]]++;
 
                     for (int d = 0; d < 4; d++) {
-                        if ((arr[cur.r][cur.c] & (1 << d)) > 0) continue;
-
                         int nr = cur.r + dr[d];
                         int nc = cur.c + dc[d];
+
+                        if (nr < 0 || nc < 0) continue;
+                        if (nr >= M || nc >= N) continue;
+
+                        if ((arr[cur.r][cur.c] & (1 << d)) > 0) {
+                            if (chk[cur.r][cur.c] != chk[nr][nc]) temp = Math.max(temp, size[chk[nr][nc]]);
+
+                            continue;
+                        }
 
                         if (chk[nr][nc] != 0) continue;
 
@@ -62,23 +70,7 @@ public class Main {
                 }
 
                 result[1] = Math.max(result[1], size[result[0]]);
-            }
-        }
-
-        for (int r = 0; r < M; r++) {
-            for (int c = 0; c < N; c++) {
-                for (int d = 0; d < 4; d++) {
-                    if ((arr[r][c] & (1 << d)) == 0) continue;
-                    
-                    int nr = r + dr[d];
-                    int nc = c + dc[d];
-
-                    if (nr < 0 || nc < 0) continue;
-                    if (nr >= M || nc >= N) continue;
-                    if (chk[r][c] == chk[nr][nc]) continue;
-
-                    result[2] = Math.max(result[2], size[chk[r][c]] + size[chk[nr][nc]]);
-                }
+                result[2] = Math.max(result[2], size[result[0]] + temp);
             }
         }
 
