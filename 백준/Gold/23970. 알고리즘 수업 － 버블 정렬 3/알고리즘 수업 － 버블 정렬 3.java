@@ -20,13 +20,9 @@ public class Main {
             B[i] = Integer.parseInt(st.nextToken());
         }
 
-        boolean chk[] = new boolean[N];
         int cnt = 0;
         for (int i = 0; i < N; i++) {
-            if (A[i] != B[i]) continue;
-
-            cnt++;
-            chk[i] = true;
+            if (A[i] == B[i]) cnt++;
         }
 
         if (cnt != N) {
@@ -34,28 +30,15 @@ public class Main {
                 for (int i = 0; i < end; i++) {
                     if (A[i] < A[i + 1]) continue;
 
+                    if (A[i] == B[i]) cnt--;
+                    if (A[i + 1] == B[i + 1]) cnt--;
+
                     int temp = A[i];
                     A[i] = A[i + 1];
                     A[i + 1] = temp;
 
-                    if (A[i] == B[i]) {
-                        cnt++;
-                        chk[i] = true; // 스왑 전에 false 였다는게 보장됨
-
-                    } else if (chk[i]) {
-                        // 스왑 후 달라짐
-                        cnt--;
-                        chk[i] = false;
-                    }
-
-                    if (A[i + 1] == B[i + 1]) {
-                        cnt++;
-                        chk[i + 1] = true;
-
-                    } else if (chk[i + 1]) {
-                        cnt--;
-                        chk[i + 1] = false;
-                    }
+                    if (A[i] == B[i]) cnt++;
+                    if (A[i + 1] == B[i + 1]) cnt++;
 
                     if (cnt == N) {
                         end = 0;
