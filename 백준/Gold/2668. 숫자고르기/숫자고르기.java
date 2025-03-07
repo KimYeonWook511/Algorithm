@@ -4,7 +4,7 @@ import java.util.*;
 public class Main {
     static int N, arr[];
     static int chk[];
-    static int result[], idx;
+    static List<Integer> result = new ArrayList<>();
 
     public static void main(String[] args) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -13,8 +13,6 @@ public class Main {
         N = Integer.parseInt(br.readLine());
         arr = new int[N + 1];
         chk = new int[N + 1];
-        result = new int[N + 1];
-        idx = N;
 
         for (int i = 1; i <= N; i++) {
             arr[i] = Integer.parseInt(br.readLine());
@@ -24,11 +22,11 @@ public class Main {
             dfs(i);
         }
 
-        Arrays.sort(result);
+        Collections.sort(result);
 
-        sb.append(N - idx).append("\n");
-        for (int i = idx + 1; i <= N; i++) {
-            sb.append(result[i]).append("\n");
+        sb.append(result.size()).append("\n");
+        for (int num : result) {
+            sb.append(num).append("\n");
         }
 
         System.out.println(sb);
@@ -45,7 +43,7 @@ public class Main {
 
         if (chk[i] == -2) return -2;
 
-        result[idx--] = i;
+        result.add(i);
 
         return chk[i] == i ? -2 : chk[i];
     }
