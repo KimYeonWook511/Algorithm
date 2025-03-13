@@ -9,24 +9,23 @@ public class Main {
         int n = Integer.parseInt(st.nextToken());
         int m = Integer.parseInt(st.nextToken());
         
-        long arr[][] = new long[n + 1][n + 1];
-        for (int r = 0; r < n; r++) {
+        long arr[][] = new long[n + 2][n + 2];
+        for (int r = 1; r <= n; r++) {
             st = new StringTokenizer(br.readLine());
 
-            for (int c = 0; c < n; c++) {
+            for (int c = 1; c <= n; c++) {
                 arr[r][c] = Integer.parseInt(st.nextToken());
             }
         }
 
-        long sum[][] = new long[n + 1][n + 1];
+        long sum[][] = new long[n + 2][n + 2];
         for (int i = 1; i < m; i++) {
             st = new StringTokenizer(br.readLine());
             st.nextToken();
-
-            int i1 = Integer.parseInt(st.nextToken());
-            int j1 = Integer.parseInt(st.nextToken());
-            int i2 = Integer.parseInt(st.nextToken());
-            int j2 = Integer.parseInt(st.nextToken());
+            int i1 = Integer.parseInt(st.nextToken()) + 1;
+            int j1 = Integer.parseInt(st.nextToken()) + 1;
+            int i2 = Integer.parseInt(st.nextToken()) + 1;
+            int j2 = Integer.parseInt(st.nextToken()) + 1;
             int k = Integer.parseInt(st.nextToken());
 
             sum[i1][j1] += k;
@@ -35,33 +34,21 @@ public class Main {
             sum[i2 + 1][j2 + 1] += k;
         }
 
-        for (int r = 0; r < n; r++) {
-            for (int c = 1; c < n; c++) {
-                sum[r][c] += sum[r][c - 1];
-            }
-        }
-
-        for (int c = 0; c < n; c++) {
-            for (int r = 1; r < n; r++) {
-                sum[r][c] += sum[r - 1][c];
+        for (int r = 1; r <= n; r++) {
+            for (int c = 1; c <= n; c++) {
+                sum[r][c] += sum[r - 1][c] + sum[r][c - 1] - sum[r - 1][c - 1];
+                arr[r][c] += arr[r - 1][c] + arr[r][c - 1] - arr[r - 1][c - 1] + sum[r][c];
             }
         }
 
         st = new StringTokenizer(br.readLine());
         st.nextToken();
-        int r1 = Integer.parseInt(st.nextToken());
-        int c1 = Integer.parseInt(st.nextToken());
-        int r2 = Integer.parseInt(st.nextToken());
-        int c2 = Integer.parseInt(st.nextToken());
-        long result = 0;
+        int r1 = Integer.parseInt(st.nextToken()) + 1;
+        int c1 = Integer.parseInt(st.nextToken()) + 1;
+        int r2 = Integer.parseInt(st.nextToken()) + 1;
+        int c2 = Integer.parseInt(st.nextToken()) + 1;
 
-        for (int r = r1; r <= r2; r++) {
-            for (int c = c1; c <= c2; c++) {
-                result += arr[r][c] + sum[r][c];
-            }
-        }
-
-        System.out.println(result);
+        System.out.println(arr[r2][c2] - arr[r1 - 1][c2] - arr[r2][c1 - 1] + arr[r1 - 1][c1 - 1]);
 
         br.close();
     }
