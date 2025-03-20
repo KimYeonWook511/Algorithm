@@ -45,20 +45,20 @@ public class Main {
                 int a = Integer.parseInt(st.nextToken());
                 int b = Integer.parseInt(st.nextToken());
                 int d = Integer.parseInt(st.nextToken());
+                boolean smellFlag = (a == g && b == h) || (a == h && b == g);
 
-                graph[a].add(new Node(b, d, false));
-                graph[b].add(new Node(a, d, false));
+                graph[a].add(new Node(b, d, smellFlag));
+                graph[b].add(new Node(a, d, smellFlag));
             }
 
             PriorityQueue<Node> pq = new PriorityQueue<>(new Comparator<Node>() {
                 @Override
                 public int compare(Node o1, Node o2) {
-                    if (o1.d == o2.d) return (o1.smellFlag || !o2.smellFlag) ? -1 : 1;
-
                     return Integer.compare(o1.d, o2.d);
                 }
             });
-            boolean chk[] = new boolean[n + 1];
+            boolean visited[] = new boolean[n + 1];
+            boolean smellChk[] = new boolean[n + 1];
 
             pq.offer(new Node(s, 0, false));
             minD[s] = 0;
@@ -66,21 +66,19 @@ public class Main {
             while (!pq.isEmpty()) {
                 Node cur = pq.poll();
 
-                if (chk[cur.i]) continue;
-                chk[cur.i] = true;
-
-                // 이 부분은 poll했을 때 갱신하려다가 next를 삽입하는 과정에서 처리해줘야 하는 로직으로 수정함
-                // if (!cur.smellFlag) minD[cur.i] = -minD[cur.i]; // JVM은 내부적으로 2의 보수로 동작함, -1을 곱하는 것은 더 비효율적
+                if (visited[cur.i]) continue;
+                visited[cur.i] = true;
+                cur.smellFlag = smellChk[cur.i];
 
                 for (Node next : graph[cur.i]) {
-                    if (Math.abs(minD[next.i]) < cur.d + next.d) continue;
-                    if (minD[next.i] > 0 && minD[next.i] == cur.d + next.d) continue;
+                    if (minD[next.i] < cur.d + next.d) continue;
 
-                    boolean nextSmellFlag = cur.smellFlag || (cur.i == g && next.i == h) || (cur.i == h && next.i == g);
+                    boolean nextSmellFlag = cur.smellFlag || next.smellFlag;
 
-                    if (!nextSmellFlag && -minD[next.i] == cur.d + next.d) continue;
+                    if (minD[next.i] == cur.d + next.d && (smellChk[next.i] || !nextSmellFlag)) continue;
 
-                    minD[next.i] = nextSmellFlag ? cur.d + next.d : -(cur.d + next.d);
+                    minD[next.i] = cur.d + next.d;
+                    smellChk[next.i] = nextSmellFlag;
                     pq.offer(new Node(next.i, cur.d + next.d, nextSmellFlag));
                 }
             }
@@ -89,7 +87,7 @@ public class Main {
             for (int i = 0; i < t; i++) {
                 int x = Integer.parseInt(br.readLine());
 
-                if (minD[x] == Integer.MAX_VALUE || minD[x] <= 0) continue;
+                if (!smellChk[x]) continue;
 
                 result.add(x);
             }
