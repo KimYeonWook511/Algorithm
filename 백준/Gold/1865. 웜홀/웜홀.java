@@ -25,14 +25,8 @@ public class Main {
             int W = Integer.parseInt(st.nextToken());
 
             Edge[] edgeArr = new Edge[M + W];
-            int minT[][] = new int[N + 1][N + 1];
+            int minT[] = new int[N + 1];
             
-            for (int r = 1; r <= N; r++) {
-                for (int c = 1; c <= N; c++) {
-                    minT[r][c] = Integer.MAX_VALUE;
-                }
-            }
-
             for (int i = 0; i < M; i++) {
                 st = new StringTokenizer(br.readLine());
                 int S = Integer.parseInt(st.nextToken());
@@ -49,54 +43,44 @@ public class Main {
                 int T = Integer.parseInt(st.nextToken());
 
                 edgeArr[M + i] = new Edge(S, E, -T);
-                minT[S][S] = 0;
             }
 
             for (int k = 1; k < N; k++) {
-                for (int j = 1; j <= N; j++) {
-                    if (minT[j][j] == Integer.MAX_VALUE) continue;
-
-                    for (int i = 0; i < M; i++) {
-                        Edge cur = edgeArr[i];
-
-                        if (minT[j][cur.S] != Integer.MAX_VALUE) minT[j][cur.E] = Math.min(minT[j][cur.E], minT[j][cur.S] + cur.T);
-                        if (minT[j][cur.E] != Integer.MAX_VALUE) minT[j][cur.S] = Math.min(minT[j][cur.S], minT[j][cur.E] + cur.T);
-                    }
-
-                    for (int i = 0; i < W; i++) {
-                        Edge cur = edgeArr[M + i];
-
-                        if (minT[j][cur.S] != Integer.MAX_VALUE) minT[j][cur.E] = Math.min(minT[j][cur.E], minT[j][cur.S] + cur.T);
-                    }
-                }
-            }
-
-            boolean flag = false;
-            for (int j = 1; j <= N; j++) {
-                if (minT[j][j] == Integer.MAX_VALUE) continue;
-
                 for (int i = 0; i < M; i++) {
                     Edge cur = edgeArr[i];
 
-                    if (minT[j][cur.S] != Integer.MAX_VALUE && minT[j][cur.E] > minT[j][cur.S] + cur.T) {
-                        flag = true;
-                        j = N;
-                        break;
-                    }
-
-                    if (minT[j][cur.E] != Integer.MAX_VALUE && minT[j][cur.S] > minT[j][cur.E] + cur.T) {
-                        flag = true;
-                        j = N;
-                        break;
-                    }
+                    minT[cur.E] = Math.min(minT[cur.E], minT[cur.S] + cur.T);
+                    minT[cur.S] = Math.min(minT[cur.S], minT[cur.E] + cur.T);
                 }
 
                 for (int i = 0; i < W; i++) {
                     Edge cur = edgeArr[M + i];
 
-                    if (minT[j][cur.S] != Integer.MAX_VALUE && minT[j][cur.E] > minT[j][cur.S] + cur.T) {
+                    minT[cur.E] = Math.min(minT[cur.E], minT[cur.S] + cur.T);
+                }
+            }
+
+            boolean flag = false;
+            for (int i = 0; i < M; i++) {
+                Edge cur = edgeArr[i];
+
+                if (minT[cur.E] > minT[cur.S] + cur.T) {
+                    flag = true;
+                    break;
+                }
+
+                if (minT[cur.S] > minT[cur.E] + cur.T) {
+                    flag = true;
+                    break;
+                }
+            }
+
+            if (!flag) {
+                for (int i = 0; i < W; i++) {
+                    Edge cur = edgeArr[M + i];
+    
+                    if (minT[cur.E] > minT[cur.S] + cur.T) {
                         flag = true;
-                        j = N;
                         break;
                     }
                 }
