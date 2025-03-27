@@ -22,7 +22,7 @@ public class Main {
             }
         }
 
-        Map<Integer, Integer> cntMap = new HashMap<>();
+        int cnt[] = new int[N * M + 1];
         int idx = 1;
 
         Deque<int[]> deque = new ArrayDeque<>();
@@ -33,7 +33,7 @@ public class Main {
 
                 deque.offer(new int[]{r, c});
                 arr[r][c] = idx;
-                cntMap.put(idx, 1);
+                cnt[idx]++;
 
                 while (!deque.isEmpty()) {
                     int cur[] = deque.poll();
@@ -48,7 +48,7 @@ public class Main {
 
                         deque.offer(new int[]{nr, nc});
                         arr[nr][nc] = idx;
-                        cntMap.put(idx, cntMap.get(idx) + 1);
+                        cnt[idx]++;
                     }
                 }
 
@@ -56,15 +56,15 @@ public class Main {
             }
         }
 
-        boolean chk[] = new boolean[cntMap.size() + 1];
+        boolean chk[] = new boolean[idx];
         int tempIdx[] = new int[4];
         for (int r = 0; r < N; r++) {
             for (int c = 0; c < M; c++) {
-                int cnt = 0;
+                int val = 0;
                 idx = 0;
 
                 if (arr[r][c] == -1) {
-                    cnt++;
+                    val++;
 
                     for (int d = 0; d < 4; d++) {
                         int nr = r + dr[d];
@@ -77,7 +77,7 @@ public class Main {
 
                         chk[arr[nr][nc]] = true;
                         tempIdx[idx++] = arr[nr][nc];
-                        cnt += cntMap.get(arr[nr][nc]);
+                        val += cnt[arr[nr][nc]];
                     }
 
                     for (int i = 0; i < idx; i++) {
@@ -85,7 +85,7 @@ public class Main {
                     }
                 }
 
-                sb.append(cnt % 10);
+                sb.append(val % 10);
             }
 
             sb.append("\n");
