@@ -14,23 +14,15 @@ public class Main {
             if (n == 0) break;
 
             int m = (int)((Double.parseDouble(st.nextToken()) + 0.001) * 100);
-            int c[] = new int[n + 1];
-            int p[] = new int[n + 1];
-
-            for (int i = 1; i <= n; i++) {
-                st = new StringTokenizer(br.readLine());
-                c[i] = Integer.parseInt(st.nextToken());
-                p[i] = (int)((Double.parseDouble(st.nextToken()) + 0.001) * 100);
-            }
 
             int dp[] = new int[m + 1];
-            for (int curM = 1; curM <= m; curM++) {
-                dp[curM] = dp[curM - 1];
+            for (int i = 1; i <= n; i++) {
+                st = new StringTokenizer(br.readLine());
+                int c = Integer.parseInt(st.nextToken());
+                int p = (int)((Double.parseDouble(st.nextToken()) + 0.001) * 100);
 
-                for (int i = 1; i <= n; i++) {
-                    if (curM < p[i]) continue;
-
-                    dp[curM] = Math.max(dp[curM], dp[curM - p[i]] + c[i]);
+                for (int curM = p; curM <= m; curM++) {
+                    dp[curM] = Math.max(dp[curM], dp[curM - p] + c);
                 }
             }
 
