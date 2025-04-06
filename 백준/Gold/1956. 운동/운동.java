@@ -33,12 +33,10 @@ public class Main {
         }
 
         int result = Integer.MAX_VALUE;
-        for (int s = 1; s <= V; s++) {
-            for (int e = 1; e <= V; e++) {
-                if (graph[s][e] == 0 || graph[e][s] == 0) continue;
+        for (int i = 1; i <= V; i++) {
+            if (graph[i][i] == 0) continue;
 
-                result = Math.min(result, graph[s][e] + graph[e][s]);
-            }
+            result = Math.min(result, graph[i][i]);
         }
 
         System.out.println(result == Integer.MAX_VALUE ? -1 : result);
