@@ -42,21 +42,16 @@ public class Main {
             }
         }
 
-        PriorityQueue<Node> pq = new PriorityQueue<>(new Comparator<Node>() {
-            @Override
-            public int compare(Node o1, Node o2) {
-                return Integer.compare(o1.cnt, o2.cnt);
-            }
-        });
+        Deque<Node> deque = new ArrayDeque<>();
         boolean chk[][][] = new boolean[H][W][4];
 
         for (int d = 0; d < 4; d++) {
-            pq.offer(new Node(laser[0][0], laser[0][1], 0, d));
+            deque.offer(new Node(laser[0][0], laser[0][1], 0, d));
         }
 
         boolean flag = false;
-        while (!pq.isEmpty()) {
-            Node cur = pq.poll();
+        while (!deque.isEmpty()) {
+            Node cur = deque.poll();
             
             if (chk[cur.r][cur.c][cur.d]) continue;
             chk[cur.r][cur.c][cur.d] = true;
@@ -84,7 +79,7 @@ public class Main {
 
                     if (chk[nr][nc][nd]) continue;
 
-                    pq.offer(new Node(nr, nc, cur.cnt + 1, nd));
+                    deque.offer(new Node(nr, nc, cur.cnt + 1, nd));
                 }
 
                 chk[nr][nc][cur.d] = true;
