@@ -31,18 +31,24 @@ public class Main {
             int sortingIdx = N - cnt - 1;
             cnt = 0;
 
-            int copyArr[] = new int[sortingIdx];
-            for (int i = 0; i < copyArr.length; i++) {
-                copyArr[i] = arr[i];
-            }
-            Arrays.sort(copyArr);
-            for (int i = 0; i < copyArr.length; i++) {
-                arr[i] = copyArr[i];
+            // int copyArr[] = new int[sortingIdx];
+            // for (int i = 0; i < copyArr.length; i++) {
+            //     copyArr[i] = arr[i];
+            // }
+            // Arrays.sort(copyArr);
+            // for (int i = 0; i < copyArr.length; i++) {
+            //     arr[i] = copyArr[i];
     
-                if (arr[i] == target[i]) cnt++;
-            }
+            //     if (arr[i] == target[i]) cnt++;
+            // }
     
-            for (int i = copyArr.length; i < N; i++) {
+            // for (int i = copyArr.length; i < N; i++) {
+            //     if (arr[i] == target[i]) cnt++;
+            // }
+
+            Arrays.sort(arr, 0, sortingIdx);
+
+            for (int i = 0; i < N; i++) {
                 if (arr[i] == target[i]) cnt++;
             }
     
