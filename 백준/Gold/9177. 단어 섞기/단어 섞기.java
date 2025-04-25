@@ -34,7 +34,7 @@ public class Main {
 
                 if (cur[1] < str2.length && !chk[cur[0]][cur[1] + 1] && str2[cur[1]] == target[cur[2]]) {
                     deque.offer(new int[]{cur[0], cur[1] + 1, cur[2] + 1});
-                    chk[cur[0]][cur[1]] = true;
+                    chk[cur[0]][cur[1] + 1] = true;
                 }
             }
 
