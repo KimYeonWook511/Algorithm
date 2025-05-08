@@ -3,13 +3,14 @@ import java.util.*;
 
 public class Main {
     static class Case {
-        int num, cnt;
-        StringBuilder sb;
+        int num;
+        char cmd;
+        Case parent;
 
-        Case (int num, int cnt, StringBuilder sb) {
+        Case (int num, char cmd, Case parent) {
             this.num = num;
-            this.cnt = cnt;
-            this.sb = sb;
+            this.cmd = cmd;
+            this.parent = parent;
         }
     }
     static char cmd[] = {'D', 'S', 'L', 'R'};
@@ -26,14 +27,21 @@ public class Main {
 
             Deque<Case> deque = new ArrayDeque<>();
             boolean chk[] = new boolean[10001];
-            deque.offer(new Case(A, 0, new StringBuilder()));
+            deque.offer(new Case(A, '0', null));
             chk[A] = true;
 
             while (true) { // 무조건 정답이 나옴
                 Case cur = deque.poll();
 
                 if (cur.num == B) {
-                    sb.append(cur.sb).append("\n");
+                    StringBuilder tempSb = new StringBuilder();
+                    while (cur.parent != null) {
+                        tempSb.append(cur.cmd);
+                        cur = cur.parent;
+                    }
+
+                    sb.append(tempSb.reverse()).append("\n");
+
                     break;
                 }
 
@@ -42,7 +50,7 @@ public class Main {
 
                     if (chk[val]) continue;
 
-                    deque.offer(new Case(val, cur.cnt + 1, new StringBuilder(cur.sb).append(cmd[d])));
+                    deque.offer(new Case(val, cmd[d], cur));
                     chk[val] = true;
                 }
             }
