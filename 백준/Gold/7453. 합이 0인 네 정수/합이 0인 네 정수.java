@@ -20,16 +20,20 @@ public class Main {
             B[i] = Integer.parseInt(st.nextToken());
             C[i] = Integer.parseInt(st.nextToken());
             D[i] = Integer.parseInt(st.nextToken());
+        }
 
-            for (int k = 0; k < i; k++) {
-                AB[i * i + (k << 1)] = A[i] + B[k];
-                AB[i * i + (k << 1) + 1] = A[k] + B[i];
-                CD[i * i + (k << 1)] = C[i] + D[k];
-                CD[i * i + (k << 1) + 1] = C[k] + D[i];
+        Arrays.sort(A);
+        Arrays.sort(B);
+        Arrays.sort(C);
+        Arrays.sort(D);
+
+        int idx = 0;
+        for (int i = 0; i < n; i++) {
+            for (int k = 0; k < n; k++) {
+                AB[idx] = A[i] + B[k];
+                CD[idx] = C[i] + D[k];
+                idx++;
             }
-
-            AB[(i + 1) * (i + 1) - 1] = A[i] + B[i];
-            CD[(i + 1) * (i + 1) - 1] = C[i] + D[i];
         }
 
         Arrays.sort(AB);
