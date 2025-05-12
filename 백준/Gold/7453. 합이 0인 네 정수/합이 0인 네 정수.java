@@ -22,6 +22,8 @@ public class Main {
             D[i] = Integer.parseInt(st.nextToken());
         }
 
+        // 이 정렬을 한다고 4500ms -> 2400ms로 줄어버리네..
+        // AB, CD 정렬시 어느정도 정렬된 데이터여서 더 빠른거 같음 -> 정렬 더 학습하기
         Arrays.sort(A);
         Arrays.sort(B);
         Arrays.sort(C);
