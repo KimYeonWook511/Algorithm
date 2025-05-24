@@ -10,7 +10,7 @@ public class Main {
         }
 
         void insert(String dir) {
-            this.childs.putIfAbsent(dir, new Directory());
+            this.childs.computeIfAbsent(dir, d -> new Directory());
         }
 
         Directory getChild(String dir) {
