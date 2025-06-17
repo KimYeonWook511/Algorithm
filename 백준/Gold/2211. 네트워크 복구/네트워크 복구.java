@@ -2,40 +2,27 @@ import java.io.*;
 import java.util.*;
 
 public class Main {
-    static class Computer {
+    static class Node {
         int i, w;
 
-        Computer (int i, int w) {
+        Node (int i, int w) {
             this.i = i;
             this.w = w;
         }
     }
 
-    static class Node extends Computer {
-        int pre;
-
-        Node (int i, int w, int pre) {
-            super(i, w);
-            this.pre = pre;
-        }
-    }
-
-    static StringBuilder sb = new StringBuilder();
-    static List<Integer> path[];
-
     public static void main(String[] args) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        
+        StringBuilder sb = new StringBuilder();
+
         StringTokenizer st = new StringTokenizer(br.readLine());
         int N = Integer.parseInt(st.nextToken());
         int M = Integer.parseInt(st.nextToken());
 
-        List<Computer> graph[] = new ArrayList[N + 1];
-        path = new ArrayList[N + 1];
+        List<Node> graph[] = new ArrayList[N + 1];
         int minW[] = new int[N + 1];
         for (int i = 0; i <= N; i++) {
             graph[i] = new ArrayList<>();
-            path[i] = new ArrayList<>();
             minW[i] = Integer.MAX_VALUE;
         }
 
@@ -45,8 +32,8 @@ public class Main {
             int B = Integer.parseInt(st.nextToken());
             int C = Integer.parseInt(st.nextToken());
 
-            graph[A].add(new Computer(B, C));
-            graph[B].add(new Computer(A, C));
+            graph[A].add(new Node(B, C));
+            graph[B].add(new Node(A, C));
         }
 
         PriorityQueue<Node> pq = new PriorityQueue<>(new Comparator<Node>() {
@@ -56,8 +43,9 @@ public class Main {
             }
         });
         boolean visited[] = new boolean[N + 1];
+        int path[] = new int[N + 1];
 
-        pq.offer(new Node(1, 0, 0));
+        pq.offer(new Node(1, 0));
         minW[1] = 0;
 
         int cnt = 0;
@@ -66,31 +54,30 @@ public class Main {
 
             if (visited[cur.i]) continue;
             visited[cur.i] = true;
-            path[cur.pre].add(cur.i);
 
             if (++cnt == N) {
                 sb.append(N - 1).append("\n");
-                dfs(1);
+                
+                for (int i = 2; i <= N; i++) {
+                    if (path[i] == 0) continue;
+
+                    sb.append(i).append(" ").append(path[i]).append("\n");
+                }
+
                 break;
             }
 
-            for (Computer next : graph[cur.i]) {
+            for (Node next : graph[cur.i]) {
                 if (minW[next.i] <= cur.w + next.w) continue;
 
                 minW[next.i] = cur.w + next.w;
-                pq.offer(new Node(next.i, cur.w + next.w, cur.i));
+                pq.offer(new Node(next.i, cur.w + next.w));
+                path[next.i] = cur.i;
             }
         }
 
         System.out.println(sb);
 
         br.close();
-    }
-
-    static void dfs(int cur) {
-        for (int next : path[cur]) {
-            sb.append(cur).append(" ").append(next).append("\n");
-            dfs(next);
-        }
     }
 }
