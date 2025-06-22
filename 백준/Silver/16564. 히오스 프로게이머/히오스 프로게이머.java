@@ -9,14 +9,9 @@ public class Main {
 		int N = Integer.parseInt(st.nextToken());
 		int K = Integer.parseInt(st.nextToken());
 		
-//		long left = Integer.MAX_VALUE;
-//		long right = 0;
-		
 		int arr[] = new int[N];
 		for (int i = 0; i < N; i++) {
 			arr[i] = Integer.parseInt(br.readLine());
-//			left = Math.min(left, arr[i]);
-//			right = Math.max(right, arr[i]);
 		}
 
 		long left = 0;
