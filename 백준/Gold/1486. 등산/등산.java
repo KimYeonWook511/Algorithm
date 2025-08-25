@@ -42,8 +42,8 @@ public class Main {
             }
         }
 
-        dijkGo(distGo);
-        dijkBack(distBack);
+        dijk(distGo, 1);
+        dijk(distBack, -1);
 
         int result = 0;
         for (int r = 0; r < N; r++) {
@@ -59,7 +59,7 @@ public class Main {
         br.close();
     }
 
-    static void dijkGo(int dist[][]) {
+    static void dijk(int dist[][], int dir) {
         PriorityQueue<Node> pq = new PriorityQueue<>(new Comparator<Node>() {
             @Override
             public int compare(Node o1, Node o2) {
@@ -84,45 +84,7 @@ public class Main {
                 if (nr >= N || nc >= M) continue;
                 if (visited[nr][nc]) continue;
 
-                int diff = arr[nr][nc] - arr[cur.r][cur.c];
-                if (diff > T || -diff > T) continue;
-
-                int nw = diff > 0 ? cur.w + (diff * diff) : cur.w + 1;
-                if (nw > D) continue;
-                if (dist[nr][nc] <= nw) continue;
-
-                pq.offer(new Node(nr, nc, nw));
-                dist[nr][nc] = nw;
-            }
-        }
-    }
-
-    static void dijkBack(int dist[][]) {
-        PriorityQueue<Node> pq = new PriorityQueue<>(new Comparator<Node>() {
-            @Override
-            public int compare(Node o1, Node o2) {
-                return Integer.compare(o1.w, o2.w);
-            }
-        });
-        boolean visited[][] = new boolean[N][M];
-        pq.offer(new Node(0, 0, 0));
-        dist[0][0] = 0;
-
-        while (!pq.isEmpty()) {
-            Node cur = pq.poll();
-
-            if (visited[cur.r][cur.c]) continue;
-            visited[cur.r][cur.c] = true;
-
-            for (int d = 0; d < 4; d++) {
-                int nr = cur.r + dr[d];
-                int nc = cur.c + dc[d];
-
-                if (nr < 0 || nc < 0) continue;
-                if (nr >= N || nc >= M) continue;
-                if (visited[nr][nc]) continue;
-
-                int diff = arr[cur.r][cur.c] - arr[nr][nc]; // 여기가 다름
+                int diff = dir * (arr[nr][nc] - arr[cur.r][cur.c]);
                 if (diff > T || -diff > T) continue;
 
                 int nw = diff > 0 ? cur.w + (diff * diff) : cur.w + 1;
