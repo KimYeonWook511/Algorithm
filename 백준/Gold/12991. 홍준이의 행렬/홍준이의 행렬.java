@@ -25,23 +25,21 @@ public class Main {
         Arrays.sort(A);
         Arrays.sort(B);
 
-        long left = 1;
+        long left = 1L * A[0] * B[0];
         long right = 1L * A[N - 1] * B[N - 1];
         while (left <= right) { // max log10억*10억 == log10^18 == log2^60 == 60
             long mid = (left + right) >> 1;
 
             int k = 0;
+            int b = N - 1;
             for (int i = 0; i < N; i++) { // max 30000
-                int l = 0;
-                int r = N - 1;
-                while (l <= r) { // max log30000 == 15
-                    int m = (l + r) >> 1;
+                while (b >= 0) {
+                    if (1L * A[i] * B[b] <= mid) break; // 혹은 A[i] <= mid / B[b]
 
-                    if (1L * A[i] * B[m] <= mid) l = m + 1; // 혹은 A[i] <= mid / B[m]
-                    else r = m - 1;
+                    b--;
                 }
 
-                k += l; // 인덱스 l부터는 초과임 (== 인덱스 r까지 가능)
+                k += b + 1;
             }
 
             if (k < K) left = mid + 1;
