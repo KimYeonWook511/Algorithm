@@ -10,11 +10,9 @@ public class Main {
         int M = Integer.parseInt(st.nextToken());
 
         int HI[] = new int[N];
-        int cntHI[] = new int[100_001];
         st = new StringTokenizer(br.readLine());
         for (int i = 0; i < N; i++) {
             HI[i] = Integer.parseInt(st.nextToken());
-            cntHI[HI[i]]++;
         }
 
         int ARC[] = new int[M];
@@ -25,12 +23,12 @@ public class Main {
             cntARC[ARC[i]]++;
         }
 
-        Arrays.sort(HI);
+        // Arrays.sort(HI);
         Arrays.sort(ARC);
 
         long result[] = new long[3];
-        int left = 0;
         for (int i = 0; i < N; i++) {
+            int left = 0;
             int right = M - 1;
             while (left <= right) {
                 int mid = (left + right) >> 1;
