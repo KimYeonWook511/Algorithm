@@ -34,7 +34,7 @@ public class Main {
         maxBit = 1 << N;
         dp = new int[N][maxBit];
         for (int i = 0; i < N; i++) {
-            for (int k = (1 << N) - 1; k >= 0; k--) {
+            for (int k = maxBit - 1; k >= 0; k--) {
                 dp[i][k] = Integer.MAX_VALUE;
             }
         }
