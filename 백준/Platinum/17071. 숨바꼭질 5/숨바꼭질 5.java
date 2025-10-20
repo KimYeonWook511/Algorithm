@@ -21,6 +21,12 @@ public class Main {
         int N = Integer.parseInt(st.nextToken());
         int K = Integer.parseInt(st.nextToken());
 
+        System.out.println(N == K ? 0 : bfs(N, K));
+
+        br.close();
+    }
+
+    static int bfs(int N, int K) {
         Deque<Node> deque = new ArrayDeque<>();
         boolean visited[][] = new boolean[MAX + 1][2]; // 0: 짝수, 1: 홀수
         deque.offer(new Node(N, K, 0));
@@ -30,15 +36,10 @@ public class Main {
         while (!deque.isEmpty()) {
             Node cur = deque.poll();
 
-            if (visited[cur.k][cur.t % 2]) {
-                answer = cur.t;
-                break;
-            }
-
             int nt = cur.t + 1;
             int nk = cur.k + nt;
             if (nk > MAX) {
-                continue;
+                break;
             }
 
             // -1
@@ -65,10 +66,13 @@ public class Main {
                     visited[cur.n * 2][nextEvenOdd] = true;
                 }
             }
+
+            if (visited[nk][nextEvenOdd]) {
+                answer = nt;
+                break;
+            }
         }
 
-        System.out.println(answer);
-
-        br.close();
+        return answer;
     }
 }
