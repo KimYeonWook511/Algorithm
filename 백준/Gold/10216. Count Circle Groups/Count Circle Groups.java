@@ -12,6 +12,7 @@ public class Main {
         }
     }
     static int parent[];
+    static int rank[];
 
     public static void main(String[] args) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -22,6 +23,7 @@ public class Main {
             int N = Integer.parseInt(br.readLine());
             Area areas[] = new Area[N];
             parent = new int[N];
+            rank = new int[N];
 
             for (int i = 0; i < N; i++) {
                 StringTokenizer st = new StringTokenizer(br.readLine());
@@ -30,6 +32,7 @@ public class Main {
                 int R = Integer.parseInt(st.nextToken());
                 areas[i] = new Area(x, y, R);
                 parent[i] = i;
+                rank[i] = 0;
             }
 
             int answer = N;
@@ -67,10 +70,13 @@ public class Main {
 
         if (x == y) return false;
 
-        if (x < y) {
+        if (rank[x] < rank[y]) {
+            parent[x] = y;
+        } else if (rank[x] > rank[y]) {
             parent[y] = x;
         } else {
-            parent[x] = y;
+            parent[y] = x;
+            rank[x]++;
         }
 
         return true;
