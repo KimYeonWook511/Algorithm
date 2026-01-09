@@ -86,26 +86,20 @@ public class Main {
                 } else {
                     nr = ROW - (nr - ROW);
                 }
-            }
-
-            if (nr >= R) {
+            } else if (nr >= R) {
                 nr -= 2 * ROW;
                 if (nr <= 0) {
                     nr = -nr;
                     cur.d = (cur.d + 2) % 4;
                 }
-            }
-
-            if (nc < 0) {
+            } else if (nc < 0) {
                 nc = -nc;
                 if (nc <= COL) {
                     cur.d = (cur.d + 2) % 4;
                 } else {
                     nc = COL - (nc - COL);
                 }
-            }
-
-            if (nc >= C) {
+            } else if (nc >= C) {
                 nc -= 2 * COL;
                 if (nc <= 0) {
                     nc = -nc;
