@@ -17,7 +17,7 @@ public class Main {
         }
 
         int sum[] = new int[K + 2]; // 누적합
-        int count[] = new int[K + 1]; // 개수
+        int count[] = new int[K + 2]; // 개수
         count[0] += N; // 가로등 자리
 
         // 왼쪽
