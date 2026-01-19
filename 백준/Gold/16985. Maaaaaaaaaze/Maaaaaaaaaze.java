@@ -65,6 +65,8 @@ public class Main {
     }
 
     static void setRotation(int layer) {
+        if (answer == 12) return;
+
         if (layer == MAX_LAYER) {
             bfs();
             return;
