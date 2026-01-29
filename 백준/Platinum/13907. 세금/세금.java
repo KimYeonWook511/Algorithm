@@ -27,8 +27,10 @@ public class Main {
 
         List<Node> graph[] = new List[N + 1];
         int minW[][] = new int[N + 1][N];
+        int visited[] = new int[N + 1];
         for (int i = 1; i <= N; i++) {
             graph[i] = new ArrayList<>();
+            visited[i] = Integer.MAX_VALUE;
 
             for (int cnt = 0; cnt < N; cnt++) {
                 minW[i][cnt] = Integer.MAX_VALUE;
@@ -51,15 +53,14 @@ public class Main {
                 return Integer.compare(o1.w, o2.w);
             }
         });
-        boolean visited[][] = new boolean[N + 1][N];
         pq.offer(new Node(S, 0, 0));
         minW[S][0] = 0;
 
         while (!pq.isEmpty()) {
             Node cur = pq.poll();
 
-            if (visited[cur.i][cur.cnt]) continue;
-            visited[cur.i][cur.cnt] = true;
+            if (cur.cnt >= visited[cur.i]) continue;
+            visited[cur.i] = cur.cnt;
 
             if (cur.cnt == N - 1) continue;
 
