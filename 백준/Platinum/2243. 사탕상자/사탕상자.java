@@ -19,21 +19,22 @@ public class Main {
             int B = Integer.parseInt(st.nextToken());
 
             if (A == 1) {
-                int start = 1;
-                int end = MAX_NUM;
-                while (start <= end) {
-                    int mid = (start + end) / 2;
-                    int rank = query(1, 1, MAX_NUM, start, mid); // start~mid까지 사탕이 몇개 있는가==rank
+                // int start = 1;
+                // int end = MAX_NUM;
+                // while (start <= end) {
+                //     int mid = (start + end) / 2;
+                //     int rank = query(1, 1, MAX_NUM, start, mid); // start~mid까지 사탕이 몇개 있는가==rank
+                //
+                //     if (rank < B) {
+                //         start = mid + 1;
+                //         B -= rank;
+                //     } else {
+                //         end = mid - 1;
+                //     }
+                // }
+                // update(1, 1, MAX_NUM, start, -1);
 
-                    if (rank < B) {
-                        start = mid + 1;
-                        B -= rank;
-                    } else {
-                        end = mid - 1;
-                    }
-                }
-                update(1, 1, MAX_NUM, start, -1);
-                sb.append(start).append("\n");
+                sb.append(find(1, 1, MAX_NUM, B)).append("\n");
             } else {
                 int C = Integer.parseInt(st.nextToken());
                 update(1, 1, MAX_NUM, B, C);
@@ -63,6 +64,24 @@ public class Main {
         int rightVal = query(node * 2 + 1, mid + 1, right, start, end);
 
         return leftVal + rightVal;
+    }
+
+    static int find(int node, int left, int right, int rank) {
+        if (left == right) {
+            tree[node] -= 1;
+            return left;
+        }
+
+        int mid = (left + right) / 2;
+        int ret = 0;
+        if (tree[node * 2] >= rank) {
+            ret = find(node * 2, left, mid, rank);
+        } else {
+            ret = find(node * 2 + 1, mid + 1, right, rank - tree[node * 2]);
+        }
+
+        tree[node] = tree[node * 2] + tree[node * 2 + 1];
+        return ret;
     }
 
     static void update(int node, int left, int right, int targetIndex, int val) {
