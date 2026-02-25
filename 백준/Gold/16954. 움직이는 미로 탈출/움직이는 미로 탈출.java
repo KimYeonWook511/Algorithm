@@ -11,8 +11,8 @@ public class Main {
             this.t = t;
         }
     }
-    static int dr[] = {-1, 0, 1, 0, -1, -1, 1, 1, 0};
-    static int dc[] = {0, 1, 0, -1, -1, 1, -1, 1, 0};
+    static int dr[] = {-1, 0, 1, 0, -1, -1, 1, 1};
+    static int dc[] = {0, 1, 0, -1, -1, 1, -1, 1};
     static final int SIZE = 8;
 
     public static void main(String[] args) throws Exception {
@@ -27,9 +27,9 @@ public class Main {
         }
 
         Deque<Node> deque = new ArrayDeque<>();
-        boolean visited[][][] = new boolean[SIZE + 1][SIZE][SIZE];
+        boolean visited[][] = new boolean[SIZE][SIZE];
         deque.offer(new Node(SIZE - 1, 0, 0));
-        visited[0][SIZE - 1][0] = true;
+        visited[SIZE - 1][0] = true;
 
         int answer = 0;
         while (!deque.isEmpty()) {
@@ -40,14 +40,19 @@ public class Main {
                 break;
             }
 
-            for (int d = 0; d < 9; d++) {
+            // 제자리
+            if (cur.r - (cur.t + 1) < 0 || map[cur.r - (cur.t + 1)][cur.c]) {
+                deque.offer(new Node(cur.r , cur.c, cur.t + 1));
+            }
+
+            for (int d = 0; d < 8; d++) {
                 int nr = cur.r + dr[d];
                 int nc = cur.c + dc[d];
                 int nt = cur.t + 1;
 
                 if (nr < 0 || nc < 0) continue;
                 if (nr >= SIZE || nc >= SIZE) continue;
-                if (visited[nt][nr][nc]) continue;
+                if (visited[nr][nc]) continue;
 
                 // 벽이라서 못감
                 if (nr - cur.t >= 0 && !map[nr - cur.t][nc]) continue;
@@ -55,7 +60,7 @@ public class Main {
                 if (nr - nt >= 0 && !map[nr - nt][nc]) continue;
 
                 deque.offer(new Node(nr, nc, nt));
-                visited[nt][nr][nc] = true;
+                visited[nr][nc] = true;
             }
         }
 
