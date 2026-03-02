@@ -11,7 +11,7 @@ public class Main {
         int range = (int)(max - min + 1);
 
         boolean isSquare[] = new boolean[range];
-        for (long i = 2; i <= 1_000_000; i++) {
+        for (long i = 2; i * i <= max; i++) {
             long square = i * i;
             long start = (min + square - 1) / square * square;
             for (long k = start; k <= max; k += square) {
