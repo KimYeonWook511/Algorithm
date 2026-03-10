@@ -2,8 +2,8 @@ import java.io.*;
 import java.util.*;
 
 public class Main {
-    
-    static final long MAX = 100_000;
+
+    static final long MAX = 100_001;
 
     static class Node {
         long val;
