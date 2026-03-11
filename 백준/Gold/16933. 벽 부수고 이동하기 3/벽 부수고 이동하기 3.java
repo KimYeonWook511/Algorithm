@@ -5,14 +5,12 @@ public class Main {
     static class Node {
         int r, c, k;
         int cnt;
-        boolean isDay;
 
-        Node (int r, int c, int k, int cnt, boolean isDay) {
+        Node (int r, int c, int k, int cnt) {
             this.r = r;
             this.c = c;
             this.k = k;
             this.cnt = cnt;
-            this.isDay = isDay;
         }
     }
     static int dr[] = {-1, 0, 1, 0};
@@ -38,7 +36,7 @@ public class Main {
         }
 
         Deque<Node> deque = new ArrayDeque<>();
-        deque.offer(new Node(0, 0, 0, 1, true));
+        deque.offer(new Node(0, 0, 0, 1));
         visited[0][0] = 0;
 
         int answer = -1;
@@ -55,7 +53,7 @@ public class Main {
                 continue;
             }
 
-            if (cur.isDay) {
+            if (cur.cnt % 2 == 1) {
                 for (int d = 0; d < 4; d++) {
                     int nr = cur.r + dr[d];
                     int nc = cur.c + dc[d];
@@ -65,12 +63,12 @@ public class Main {
 
                     if (map[nr][nc]) {
                         if (visited[nr][nc] > cur.k) {
-                            deque.offer(new Node(nr, nc, cur.k, cur.cnt + 1, !cur.isDay));
+                            deque.offer(new Node(nr, nc, cur.k, cur.cnt + 1));
                             visited[nr][nc] = cur.k;
                         }
                     } else {
                         if (cur.k + 1 <= K && visited[nr][nc] > cur.k + 1) {
-                            deque.offer(new Node(nr ,nc, cur.k + 1, cur.cnt + 1, !cur.isDay));
+                            deque.offer(new Node(nr ,nc, cur.k + 1, cur.cnt + 1));
                             visited[nr][nc] = cur.k + 1;
                         }
                     }
@@ -85,12 +83,11 @@ public class Main {
                     if (!map[nr][nc]) continue;
                     if (visited[nr][nc] <= cur.k) continue;
 
-                    deque.offer(new Node(nr, nc, cur.k, cur.cnt + 1, !cur.isDay));
+                    deque.offer(new Node(nr, nc, cur.k, cur.cnt + 1));
                     visited[nr][nc] = cur.k;
                 }
                 // 제자리에 머물기 (밤일때만)
                 cur.cnt++;
-                cur.isDay = !cur.isDay;
                 deque.offer(cur);
             }
         }
