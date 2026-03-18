@@ -12,12 +12,13 @@ public class Main {
         int codes[] = new int[N + 1];
         for (int i = 1; i <= N; i++) {
             String str = br.readLine();
-            for (int k = 0; k < K; k++) {
-                codes[i] <<= 1;
-                if (str.charAt(k) == '1') {
-                    codes[i] |= 1;
-                }
-            }
+            codes[i] = Integer.parseInt(str, 2);
+            // for (int k = 0; k < K; k++) {
+            //     codes[i] <<= 1;
+            //     if (str.charAt(k) == '1') {
+            //         codes[i] |= 1;
+            //     }
+            // }
         }
 
         st = new StringTokenizer(br.readLine());
