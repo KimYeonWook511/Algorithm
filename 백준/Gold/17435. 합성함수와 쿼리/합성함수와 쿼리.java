@@ -54,9 +54,13 @@ public class Main {
 
     static int jump(int n, int x, int next[][]) {
         int cur = x;
-        for (int l = 0; l <= next.length; l++) {
-            if (((1 << l) & n) != 0) {
+        for (int l = next.length - 1; l >= 0; l--) {
+            int bit = ((1 << l) & n);
+            if (bit != 0) {
                 cur = next[l][cur];
+                n -= bit;
+
+                if (n == 0) break;
             }
         }
         return cur;
