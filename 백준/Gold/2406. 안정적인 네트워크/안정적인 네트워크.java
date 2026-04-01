@@ -134,10 +134,9 @@ public class Main {
             for (int y = 1; y <= n; y++) {
                 int w = Integer.parseInt(st.nextToken());
 
-                if (x == y) continue;
-                if (y == 1) continue;
-
-                edges.add(new Edge(x, y, w));
+                if (x < y) {
+                    edges.add(new Edge(x, y, w));
+                }
             }
         }
 
