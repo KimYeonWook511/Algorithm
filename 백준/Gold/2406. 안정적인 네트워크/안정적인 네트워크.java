@@ -17,8 +17,8 @@ public class Main {
     public static void main(String[] args) throws Exception {
         // 1을 제외하고 연결되어야 함
         // 프림, 크루스칼 다 가능해 보임
-        // solvePrim();
-        solveKruskal();
+        solvePrim();
+        // solveKruskal();
     }
 
     static void solvePrim() throws Exception {
@@ -50,11 +50,10 @@ public class Main {
             for (int y = 1; y <= n; y++) {
                 int w = Integer.parseInt(st.nextToken());
 
-                if (x == y) continue;
-                if (y == 1) continue;
-
-                graph[x].add(new Edge(x, y, w));
-                graph[y].add(new Edge(y, x, w));
+                if (x < y) {
+                    graph[x].add(new Edge(x, y, w));
+                    graph[y].add(new Edge(y, x, w));
+                }
             }
         }
 
