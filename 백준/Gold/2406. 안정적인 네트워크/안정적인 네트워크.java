@@ -115,12 +115,16 @@ public class Main {
             parents[i] = i;
         }
 
+        int cnt = n - 2;
         List<Edge> edges = new ArrayList<>();
         for (int i = 0; i < m; i++) {
             st = new StringTokenizer(br.readLine());
             int x = Integer.parseInt(st.nextToken());
             int y = Integer.parseInt(st.nextToken());
-            edges.add(new Edge(x, y, 0));
+            // x,y는 1이 아닌가??
+            if (union(x, y)) {
+                cnt--;
+            }
         }
 
         for (int x = 1; x <= n; x++) {
@@ -148,19 +152,15 @@ public class Main {
         int K = 0;
         StringBuilder sb = new StringBuilder();
 
-        int cnt = n - 1;
         for (Edge edge : edges) {
             int from = edge.from;
             int to = edge.to;
             int w = edge.w;
 
             if (union(from, to)) {
-                if (w != 0) {
-                    X += w;
-                    K++;
-                    sb.append(from).append(" ").append(to).append("\n");
-                }
-
+                X += w;
+                K++;
+                sb.append(from).append(" ").append(to).append("\n");
                 if (--cnt == 0) break;
             }
         }
