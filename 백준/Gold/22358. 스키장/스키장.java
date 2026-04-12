@@ -63,12 +63,13 @@ public class Main {
             }
         }
 
-        long answer = -1;
-        for (int k = 0; k <= K; k++) {
-            answer = Math.max(answer, dp[k][T]);
-        }
-
-        System.out.println(answer);
+        // long answer = -1;
+        // for (int k = 0; k <= K; k++) {
+        //     answer = Math.max(answer, dp[k][T]);
+        // }
+        //
+        // System.out.println(answer);
+        System.out.println(dp[K][T]);
 
         br.close();
     }
