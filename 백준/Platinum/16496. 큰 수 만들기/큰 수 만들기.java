@@ -17,20 +17,21 @@ public class Main {
         Arrays.sort(arr, new Comparator<String>() {
             @Override
             public int compare(String o1, String o2) {
-                int o1len = o1.length();
-                int o2len = o2.length();
-                int total = o1len + o2len;
-                int val = 0;
-                for (int i = 0; i < total; i++) {
-                    char c1 = (i < o1len) ? o1.charAt(i) : o2.charAt(i - o1len); // a+b
-                    char c2 = (i < o2len) ? o2.charAt(i) : o1.charAt(i - o2len); // b+a
-
-                    if (c1 != c2) {
-                        val = -Character.compare(c1, c2);
-                        break;
-                    }
-                }
-                return val;
+            //     int o1len = o1.length();
+            //     int o2len = o2.length();
+            //     int total = o1len + o2len;
+            //     int val = 0;
+            //     for (int i = 0; i < total; i++) {
+            //         char c1 = (i < o1len) ? o1.charAt(i) : o2.charAt(i - o1len); // a+b
+            //         char c2 = (i < o2len) ? o2.charAt(i) : o1.charAt(i - o2len); // b+a
+            //
+            //         if (c1 != c2) {
+            //             val = -Character.compare(c1, c2);
+            //             break;
+            //         }
+            //     }
+            //     return val;
+                return -(o1 + o2).compareTo(o2 + o1); // 메모리가 얼마나 사용될까?
             }
         });
 
