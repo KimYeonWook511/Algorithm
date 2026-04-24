@@ -26,8 +26,8 @@ public class Main {
 	static int ranks[];
 
 	public static void main(String[] args) throws Exception {
-		// prim(); // E: 2*P, V: N -> O(ElogV)
-		kruskal(); // E: P, V:N -> O(ElogE)
+		prim(); // E: 2*P, V: N -> O(ElogV)
+		// kruskal(); // E: P, V:N -> O(ElogE)
 		// 크루스칼이 더 빠를 것으로 예상
 	}
 
