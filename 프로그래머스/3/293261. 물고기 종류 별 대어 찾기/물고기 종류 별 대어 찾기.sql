@@ -1,8 +1,11 @@
-select id as ID, fish_name as FISH_NAME, length as LENGTH
-  from fish_info as fi
-  join fish_name_info as fni
-    on fi.fish_type = fni.fish_type
-  where (fi.fish_type, length) in (select fish_type, max(length)
-                                  from fish_info
-                                  group by fish_type)
+with MY_TMP as (
+    select fi.id, fish_name, length, rank() over(partition by fi.fish_type order by length desc) as rnk
+      from fish_info as fi
+      join fish_name_info as fni
+        on fi.fish_type = fni.fish_type
+)
+
+select id, fish_name, length
+  from MY_TMP
+  where rnk = 1
   order by id;
