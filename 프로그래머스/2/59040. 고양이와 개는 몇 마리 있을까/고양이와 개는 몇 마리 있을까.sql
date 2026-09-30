@@ -1,4 +1,4 @@
-select animal_type, count(*) as count
+select animal_type, count(*)
   from animal_ins
   group by animal_type
   order by case animal_type
