@@ -1,4 +1,4 @@
-select c.car_id, c.car_type, 30 * daily_fee * (1 - discount_rate * 0.01) as fee
+select c.car_id, c.car_type, floor(30 * daily_fee * (1 - discount_rate * 0.01)) as fee
   from car_rental_company_car as c
   join car_rental_company_discount_plan as d
     on c.car_type = d.car_type
