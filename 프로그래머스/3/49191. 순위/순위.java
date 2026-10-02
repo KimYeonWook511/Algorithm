@@ -1,16 +1,6 @@
 import java.util.*;
 
 class Solution {
-    static class Node {
-        int i;
-        int next;
-        
-        public Node (int i, int next) {
-            this.i = i;
-            this.next = next;
-        }
-    }
-    
     public int solution(int n, int[][] results) {
         int answer = 0;
         
