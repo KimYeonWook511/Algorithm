@@ -43,9 +43,9 @@ class Solution {
         for (int i = 0; i < rankIndex; i++) {
             List<int[]> list = mapList.get(rank[i][0]);
             for (int j = 0; j < 2; j++) {
-                if (list.size() >= j + 1) {
-                    result.add(list.get(j)[0]);
-                }
+                if (list.size() < j + 1) break;
+                
+                result.add(list.get(j)[0]);
             }
         }
         
