@@ -1,8 +1,6 @@
--- 코드를 작성해주세요
-select ed.id, ed.genotype, sub.genotype as parent_genotype
-  from ecoli_data ed
-  inner join ecoli_data sub
-    on ed.parent_id = sub.id
-    and ed.genotype & sub.genotype = sub.genotype
-  order by ed.id;
-  
+select e1.id, e1.genotype, e2.genotype
+  from ecoli_data as e1
+  join ecoli_data as e2
+    on e1.parent_id = e2.id
+  where e1.genotype & e2.genotype = e2.genotype
+  order by e1.id;
