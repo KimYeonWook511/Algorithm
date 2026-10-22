@@ -1,7 +1,8 @@
-select h.flavor
-  from first_half as h
-  join july as j
-    on h.flavor = j.flavor
-  group by h.flavor
-  order by h.total_order + sum(j.total_order) desc
+select j.flavor
+  from july as j
+  left join first_half as f
+    on j.shipment_id = f.shipment_id
+  group by j.flavor
+  order by sum(j.total_order) + f.total_order desc
   limit 3;
+  
